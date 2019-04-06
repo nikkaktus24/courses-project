@@ -24,6 +24,21 @@ export class AuthService {
         StorageService.set<string>(TOKEN_NAME, token);
     }
 
+    public static logout() {
+        return async (dispatch: any) => {
+            dispatch({
+                type: UserConstants.LOGOUT,
+            });
+
+            await setTimeout(() => {}, 200);
+            StorageService.delete(TOKEN_NAME);
+
+            dispatch({
+                type: UserConstants.LOGOUT_OK,
+            });
+        };
+    }
+
     public static fetchSession(model: SessionModel) {
         return async (dispatch: any) => {
             dispatch({

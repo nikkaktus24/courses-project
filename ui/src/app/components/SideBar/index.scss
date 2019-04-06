@@ -1,6 +1,7 @@
 @import '../../../assets/styles/variables/colors';
 @import '../../../assets/styles/variables/sizes';
 @import '../../../assets/styles/mixins/flexbox';
+@import '../../../assets/styles/mixins/fonts';
 
 .cc-sidebar-wrapper {
     position: fixed;
@@ -11,9 +12,49 @@
 
 .cc-sidebar {
     position: relative;
-    @include flexbox(column, flex-start);
 
     &__logo {
+        @include font-semibold();
+        @include flexbox();
+        margin-top: 20px;
+        color: $color-white;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    &-navigation {
+        margin-top: 30px;
+        color: $color-white;
+
+        &__item {
+            @include font-semibold();
+            background-color: darken($color: $color-sidebar, $amount: 10%);
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color linear 0.2s;
+
+            &:hover {
+                background-color: darken($color: $color-sidebar, $amount: 30%);
+            }
+
+            &:active {
+                background-color: darken($color: $color-sidebar, $amount: 50%);
+            }
+        }
+    }
+
+    &__session {
+        margin-top: 20px;
+        @include flexbox(column);
+        color: $color-white;
+    }
+
+    &__session-caption {
+        font-size: 0.7rem;
+    }
+
+    &__login {
         font-size: 1rem;
     }
 }

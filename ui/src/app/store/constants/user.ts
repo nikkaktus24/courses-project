@@ -3,4 +3,6 @@ export enum UserConstants {
     FETCH_USER_OK = '[USERS]_FETCH_USER_OK',
     FETCH_USER_FAIL = '[USERS]_FETCH_USER_FAIL',
     CLEAR = '[USERS]_CLEAR',
+    LOGOUT = '[USERS]_LOGOUT',
+    LOGOUT_OK = '[USERS]_LOGOUT_OK',
 }

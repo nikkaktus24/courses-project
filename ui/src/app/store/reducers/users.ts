@@ -49,6 +49,22 @@ export function userReducer(state = initialState, action: ActionPayload<any>): I
                 error: initialState.error,
             };
         }
+        case UserConstants.LOGOUT: {
+            return {
+                ...state,
+                isLoading: true,
+                error: initialState.error,
+                isLoggedIn: initialState.isLoggedIn,
+            };
+        }
+        case UserConstants.LOGOUT_OK: {
+            return {
+                ...state,
+                isLoading: initialState.isLoading,
+                error: initialState.error,
+                userData: initialState.userData,
+            };
+        }
         default:
             return {
                 ...state,

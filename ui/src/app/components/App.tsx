@@ -6,42 +6,36 @@ import CoursesFlow from './CoursesFlow';
 import { IAppState } from '../store/reducers';
 import { connect } from 'react-redux';
 import { SharedService } from '../services/sharedService';
+import { UserData } from '../models/Shared/UserData';
+import { AuthService } from '../services/authService';
 
 interface Props {
     children: React.ReactNode;
-    test?: boolean;
-    testFn?: () => void;
+    user: UserData;
+    logout: () => void;
 }
 
 const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
     return {
         ...props,
-        test: state.shared.test,
+        user: state.user.userData,
     };
 };
 
 const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
     return {
         ...props,
-        testFn: () => {
-            dispatch(SharedService.test());
+        logout: () => {
+            dispatch(AuthService.logout());
         },
     };
 };
 
 const App = (props: Props): JSX.Element => {
-    const onClick = () => {
-        props.testFn();
-    };
-
     return (
         <div className='cc-app'>
-            {props.test &&
-                <div className='cc-app__sidebar'>
-                      <SideBar />
-                </div>}
-            <div className='cc-app__header'>
-             <button onClick={onClick}>TEST</button>
+            <div className='cc-app__sidebar'>
+                <SideBar logout={props.logout} user={props.user} />
             </div>
             <div className='cc-app__main'>
                 <Switch>
@@ -54,5 +48,5 @@ const App = (props: Props): JSX.Element => {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(App);

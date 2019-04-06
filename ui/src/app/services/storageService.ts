@@ -11,5 +11,9 @@ export class StorageService {
         return JSON.parse(localStorage.getItem(key));
     }
 
+    public static delete(key: string): void {
+        localStorage.removeItem(key);
+    }
+
     constructor() {}
 }
