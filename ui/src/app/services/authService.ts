@@ -103,7 +103,6 @@ export class AuthService {
 
     public static initInterceptors(token: string) {
         Axios.interceptors.request.use(function (config) {
-            console.log(config);
             config.headers = { 'Authorization': token };
             return config;
           }, function (error) {

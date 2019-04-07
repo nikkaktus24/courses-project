@@ -29,17 +29,17 @@
 
         &__item {
             @include font-semibold();
-            background-color: darken($color: $color-sidebar, $amount: 10%);
+            background-color: darken($color: $color-sidebar, $amount: 3%);
             padding: 20px;
             cursor: pointer;
             transition: background-color linear 0.2s;
 
             &:hover {
-                background-color: darken($color: $color-sidebar, $amount: 30%);
+                background-color: darken($color: $color-sidebar, $amount: 10%);
             }
 
             &:active {
-                background-color: darken($color: $color-sidebar, $amount: 50%);
+                background-color: darken($color: $color-sidebar, $amount: 15%);
             }
         }
     }
@@ -47,6 +47,12 @@
     &__session {
         margin-top: 20px;
         @include flexbox(column);
+        color: $color-white;
+    }
+
+    &__store {
+        margin-top: 20px;
+        text-align: center;
         color: $color-white;
     }
 

@@ -9,6 +9,7 @@ export class Course {
     public date: moment.Moment;
     public length: number;
     public description: string;
+    public photoUrl: string;
     public authors: Entity<string>[];
     public isTopRated: boolean;
 
@@ -24,6 +25,7 @@ export class Course {
         course.date = moment(response.date);
         course.length = response.length;
         course.description = response.description;
+        course.photoUrl = response.photoUrl;
         course.authors = response.authors.map((entity: IEntityDTO<string>) => Entity.fromServer<string>(entity));
         course.isTopRated = response.isTopRated;
 

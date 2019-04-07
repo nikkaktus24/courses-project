@@ -4,12 +4,14 @@ import { Course } from './../../models/Courses/Courses';
 
 export type ICoursesState = {
     courses: Course[];
+    store: string[];
     error: string;
     isLoading: boolean;
 };
 
 const initialState: ICoursesState = {
     courses: void 0,
+    store: [],
     error: void 0,
     isLoading: false,
 };
@@ -34,6 +36,12 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 ...state,
                 isLoading: initialState.isLoading,
                 error: action.payload,
+            };
+        }
+        case CourseConstants.STORE_WORK: {
+            return {
+                ...state,
+                store: action.payload,
             };
         }
         default:

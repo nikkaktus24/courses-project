@@ -9,7 +9,7 @@ interface Props {
 
 const PLACEHOLDER_IMG = require('../../../assets/images/placeholder.png');
 
-const Card = (props: Props): JSX.Element => {
+const PrivateCard = (props: Props): JSX.Element => {
     return (
         <div className={props.course.isTopRated ? 'cc-card cc-card_top-rated' : 'cc-card'}>
             <img
@@ -23,10 +23,10 @@ const Card = (props: Props): JSX.Element => {
                 <div className='cc-card__desc'>
                     {props.course.description}
                 </div>
-                <button onClick={props.order} type='button' className='cc-btn cc-card__button cc-btn_red-outline'>Заказать</button>
+                <button type='button' className='cc-btn cc-card__button cc-btn_red-outline'>Заказать</button>
             </div>
         </div>
     );
 };
 
-export default Card;
+export default PrivateCard;

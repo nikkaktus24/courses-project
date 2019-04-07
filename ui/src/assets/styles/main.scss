@@ -4,9 +4,20 @@
 @import './components/text.scss';
 @import './mixins/flexbox.scss';
 @import './mixins/fonts.scss';
+@import './variables/sizes.scss';
 
 .cc-app {
-  @include flexbox(row, flex-start);
+  @include flexbox(row, flex-start, flex-start);
   @include font-regular();
   width: 100%;
+
+  &__sidebar {
+    width: $sidebar-width;
+    height: 100%;
+  }
+
+  &__main {
+    padding: 20px 40px;
+    width: 100%;
+  }
 }

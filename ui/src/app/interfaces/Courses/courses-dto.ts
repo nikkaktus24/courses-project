@@ -5,6 +5,7 @@ export interface ICourseDTO {
     name: string;
     date: string;
     length: number;
+    photoUrl: string;
     description: string;
     authors: IEntityDTO<string>[];
     isTopRated: boolean;

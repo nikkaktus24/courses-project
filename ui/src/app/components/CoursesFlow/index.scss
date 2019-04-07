@@ -2,32 +2,20 @@
 @import '../../../assets/styles/mixins/fonts.scss';
 @import '../../../assets/styles/variables/colors.scss';
 
-.cc-login {
-    @include font-regular();
-    @include flexbox(column, flex-start, center);
-    position: relative;
-    min-width: 374px;
-    width: 100%;
+.cc-course-flow {
 
-    &__title {
-        margin-bottom: 40px;
+    &__typeahead {
+        max-width: 300px;
     }
 
-    &__buttons {
-        @include flexbox();
+    &__courses {
+        @include flexbox(row, flex-start, center, wrap);
+        margin-top: 20px;
     }
 
-    &__button {
-        width: 100%;
-
-        &_with-margin {
-            margin-right: 30px;
-        }
-    }
-
-    &__error-bar {
+    &__no-data-available {
         @include font-semibold();
-        margin-top: 10px;
-        color: $color-red;
+        text-transform: uppercase;
     }
+
 }

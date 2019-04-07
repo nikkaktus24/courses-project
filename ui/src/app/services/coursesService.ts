@@ -4,12 +4,20 @@ import { CourseConstants } from './../store/constants/courses';
 import { Course } from '../models/Courses/Courses';
 import { SortTypes } from '../enums/sort-types';
 
+const COURSE_COUNT: number = 8;
 
 export class CoursesService {
 
     public static clearErrors() {
         return {
             type: CourseConstants.CLEAR,
+        };
+    }
+
+    public static store(store: string[]) {
+        return {
+            type: CourseConstants.STORE_WORK,
+            payload: store,
         };
     }
 
@@ -20,7 +28,7 @@ export class CoursesService {
             });
             try {
 
-                const response: ICourseDTO[] = await CourseApi.fetchCourses(start, pageNumber, sort, textFragment);
+                const response: ICourseDTO[] = await CourseApi.fetchCourses(start, pageNumber * COURSE_COUNT, sort, textFragment);
                 const payload: Course[] = response.map((item: ICourseDTO) => Course.fromServer(item));
 
                 dispatch({
