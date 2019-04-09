@@ -7,11 +7,13 @@ export class UserData {
     public login: string;
     public name: PersonName;
     public permission: Persmission;
+    public isAdmin: boolean;
 
     constructor(model: IUserData) {
         this.id = model.id;
         this.login = model.login;
         this.name = new PersonName(model.name);
+        this.isAdmin = model.isAdmin;
     }
 
 }

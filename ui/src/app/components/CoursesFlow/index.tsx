@@ -10,16 +10,21 @@ import { CoursesService } from '../../services/coursesService';
 import { Course } from '../../models/Courses/Courses';
 import Card from '../Card';
 import Loader from '../Loader';
+import { UserData } from '../../models/Shared/UserData';
+import { courseOptions } from '../../helpers/courseOptions';
+import { Entity } from '../../models/Shared/Entity';
 
 interface Props {
     children: React.ReactNode;
     courses: Course[];
+    user: UserData;
     store: string[];
     isLoading?: boolean;
     error: string;
     fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string) => void;
     clear: () => void;
     order: (store: string[]) => void;
+    deleteCourse: (id: string) => void;
 }
 
 interface State {
@@ -32,6 +37,7 @@ const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
     return {
         ...props,
         courses: state.courses.courses,
+        user: state.user.userData,
         store: state.courses.store,
         isLoading: state.courses.isLoading,
         error: state.user.error,
@@ -49,11 +55,15 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
         },
         order: (store: string[]) => {
             dispatch(CoursesService.store(store));
-        }
+        },
+        deleteCourse: (id: string) => {
+            dispatch(CoursesService.deleteCourse(id));
+        },
     };
 };
 
 class CoursesFlow extends React.PureComponent<Props, any> {
+    public pageNumber: number = 1;
 
     constructor(props: Props) {
         super(props);
@@ -70,12 +80,24 @@ class CoursesFlow extends React.PureComponent<Props, any> {
     }
 
     public componentDidMount(): void {
-        this.props.fetchCourses(0, 1);
+        this.props.fetchCourses(0, this.pageNumber);
     }
 
     public order = (id: string): () => any => {
         const store: string[] = [...this.props.store, id];
        return () => this.props.order(store);
+    }
+
+    public deleteCourse = (id: string): () => any => {
+        return () => {
+            this.props.deleteCourse(id);
+            this.props.fetchCourses(0, 1);
+        };
+    }
+
+    public loadMore = (): void => {
+        this.pageNumber++;
+        this.props.fetchCourses(0, this.pageNumber);
     }
 
     public render(): React.ReactElement {
@@ -93,15 +115,36 @@ class CoursesFlow extends React.PureComponent<Props, any> {
                             name='login'
                             id='login' />
                     </div>
+                    <div className='cc-form__contro cc-course-flow__filter'>
+                        <label className='cc-form__label' htmlFor='login'>Сортировать по</label>
+                        <select
+                            className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            name='login'
+                            id='login'>
+                                <option value={null}></option>
+                                {courseOptions && courseOptions.map((item: Entity<SortTypes>) => <option value={item.id} key={item.id}>{item.name}</option>)}
+                            </select>
+                    </div>
+                    <div className='cc-form__contro cc-course-flow__filter'>
+                        <label className='cc-form__label' htmlFor='login'>Фильтровать по</label>
+                        <select
+                            className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            name='login'
+                            id='login'>
+                                <option value={null}></option>
+                                {courseOptions && courseOptions.map((item: Entity<SortTypes>) => <option value={item.id} key={item.id}>{item.name}</option>)}
+                            </select>
+                    </div>
                 </form>
                 {this.props.isLoading &&
                 <Loader />}
                 <div className='cc-course-flow__courses'>
                     {this.props.courses &&
-                this.props.courses.map((item: Course) => <Card order={this.order(item.id)} course={item} key={item.id}></Card>)}
+                this.props.courses.map((item: Course) => <Card deleteCourse={this.deleteCourse(item.id)} isAdmin={this.props.user.isAdmin} order={this.order(item.id)} course={item} key={item.id}></Card>)}
                 </div>
+                {(this.props.courses && this.props.courses.length) ? <button onClick={this.loadMore} className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Загрузить еще</button> : null}
                     {(this.props.courses && !this.props.courses.length) &&
-                <div className='cc-course-flow__no-data-available'>No courses found</div>}
+                <div className='cc-course-flow__no-data-available'>Курсы по данному запросу не найдены</div>}
             </div>
         );
     }

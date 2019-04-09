@@ -6,4 +6,5 @@ export interface IUserData {
     name: IUserName;
     login: string;
     password: string;
+    isAdmin: boolean;
 }

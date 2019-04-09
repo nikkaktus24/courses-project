@@ -1,3 +1,4 @@
+import { CoursesService } from './../../services/coursesService';
 import { ActionPayload } from './../../interfaces/ActionPayload';
 import { CourseConstants } from './../constants/courses';
 import { Course } from './../../models/Courses/Courses';
@@ -18,6 +19,7 @@ const initialState: ICoursesState = {
 
 export function coursesReducer(state = initialState, action: ActionPayload<any>): ICoursesState {
     switch (action.type) {
+        case CourseConstants.DELETE_COURSE:
         case CourseConstants.FETCH_COURSES: {
             return {
                 ...state,
@@ -31,6 +33,13 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.DELETE_COURSE_OK: {
+            return {
+                ...state,
+                isLoading: initialState.isLoading,
+            };
+        }
+        case CourseConstants.DELETE_COURSE_FAIL:
         case CourseConstants.FETCH_COURSES_FAIL: {
             return {
                 ...state,

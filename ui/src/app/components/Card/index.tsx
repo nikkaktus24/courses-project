@@ -1,29 +1,35 @@
 import * as React from 'react';
 import './index.scss';
 import { Course } from '../../models/Courses/Courses';
+import { timeConvert } from '../../helpers/timeConverter';
 
 interface Props {
     course: Course;
-    order?: () => void;
+    isAdmin: boolean;
+    order: () => void;
+    deleteCourse: () => void;
 }
-
-const PLACEHOLDER_IMG = require('../../../assets/images/placeholder.png');
 
 const Card = (props: Props): JSX.Element => {
     return (
         <div className={props.course.isTopRated ? 'cc-card cc-card_top-rated' : 'cc-card'}>
-            <img
-                className='cc-card__photo'
-                src={props.course.photoUrl ? props.course.photoUrl : PLACEHOLDER_IMG}
-                alt='placeholder' />
-            <div className='cc-card__container'>
-                <div className='cc-card__title'>
-                    {props.course.name}
+            <div className='cc-card__info'>
+                <div className='cc-card__header'>
+                    <h2 className='cc-card__title'>{props.course.name}</h2>
+                    <div className='cc-card__sign'>
+                        <div>{props.course.cost + 'р'}</div>
+                        <div>{timeConvert(props.course.length)}</div>
+                        <div>{props.course.date.format('DD/MM/YYYY')}</div>
+                    </div>
                 </div>
-                <div className='cc-card__desc'>
-                    {props.course.description}
-                </div>
-                <button onClick={props.order} type='button' className='cc-btn cc-card__button cc-btn_red-outline'>Заказать</button>
+                <div className='cc-card__desc'>{props.course.description}</div>
+            </div>
+            <div className='cc-card__dashboard'>
+                <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>
+                {props.isAdmin && (
+                [<button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button>,
+                <button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button>]
+                )}
             </div>
         </div>
     );

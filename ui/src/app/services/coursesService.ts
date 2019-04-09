@@ -104,12 +104,14 @@ export class CoursesService {
     }
 
 
-    public static deleteCourse(id: number) {
+    public static deleteCourse(id: string) {
         return async (dispatch: any) => {
             dispatch({
                 type: CourseConstants.DELETE_COURSE,
             });
             try {
+
+                CourseApi.deleteCourse(id);
 
                 dispatch({
                     type: CourseConstants.DELETE_COURSE_OK,

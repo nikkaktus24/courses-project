@@ -11,11 +11,16 @@ module.exports = (server) => {
 			to = +query.start + +query.count,
 			sort = query.sort,
 			queryStr = query.query,
+			filter = query.filter,
 			id = query.id,
 			courses = server.db.getState().courses;
 		
-			if (!!query.textFragment) {
+			if (!!query.textFragment && !query.filter) {
 				courses = courses.filter((course) => course.name.concat(course.description).toUpperCase().indexOf(query.textFragment.toUpperCase()) >= 0);
+			}
+
+			if (!!query.textFragment && query.filter) {
+				courses = courses.filter((course) => course[query.filter].toUpperCase().indexOf(query.textFragment.toUpperCase()) >= 0);
 			}
 		
 		if(sort) {

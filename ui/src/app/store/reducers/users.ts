@@ -4,7 +4,6 @@ import { UserConstants } from '../constants/user';
 
 export type IUserState = {
     userData: UserData;
-    isAdmin: boolean;
     isLoggedIn: boolean;
     error: string;
     isLoading: boolean;
@@ -14,7 +13,6 @@ export type IUserState = {
 const initialState: IUserState = {
     userData: void 0,
     error: void 0,
-    isAdmin: true,
     isLoggedIn: false, // CHANGE IT IF IT NEEDED
     isLoading: false,
 };

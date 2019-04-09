@@ -65,6 +65,15 @@
         opacity: 0.3;
     }
 
+    &_primary {
+        background-color: $color-primary;
+        color: $color-white;
+    }
+
+    &_primary-outline {
+        border-color: $color-primary;
+        color: $color-primary;      
+    }
 
     &_blue {
         background-color: $color-blue;

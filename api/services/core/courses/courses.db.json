@@ -5,6 +5,7 @@
     "name": "duis mollit reprehenderit ad",
     "description": "Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.",
     "isTopRated": false,
+    "cost": 100,
     "date": "2017-09-28T04:39:24+00:00",
     "photoUrl": "https://lagunita.stanford.edu/c4x/StanfordOnline/O.P.E.N./asset/course_design_tile.jpg",
     "authors": [
@@ -20,6 +21,7 @@
     "id": 4980,
     "name": "magna excepteur aute deserunt",
     "description": "Sunt culpa officia minim commodo eiusmod irure sunt nostrud. Mollit aliquip id occaecat officia proident anim dolor officia qui voluptate consectetur laborum. Duis incididunt culpa aliqua mollit do fugiat ea dolor mollit irure Lorem tempor.",
+    "cost": 200,
     "isTopRated": false,
     "photoUrl": "https://lagunita.stanford.edu/c4x/StanfordOnline/O.P.E.N./asset/course_design_tile.jpg",
     "date": "2016-05-31T02:02:36+00:00",
@@ -46,6 +48,7 @@
     "id": 4282,
     "name": "sit voluptate eiusmod ea",
     "description": "Commodo id sunt sunt adipisicing et aliquip voluptate laborum consectetur. Occaecat nisi sint exercitation ullamco adipisicing irure est in consectetur aute voluptate. Ea pariatur dolor anim ea reprehenderit ut non occaecat magna adipisicing exercitation nisi consequat.",
+    "cost": 300,
     "isTopRated": true,
     "date": "2017-03-25T12:57:37+00:00",
     "authors": [
@@ -66,6 +69,7 @@
     "id": 1936,
     "name": "reprehenderit est veniam elit",
     "description": "Consectetur veniam non nulla in laboris minim ipsum. Dolor aliqua irure sint do irure magna tempor culpa quis. Deserunt amet occaecat velit sit.",
+    "cost": 400,
     "isTopRated": true,
     "date": "2016-03-18T06:36:07+00:00",
     "authors": [
@@ -91,6 +95,7 @@
     "id": 2006,
     "name": "reprehenderit eiusmod nostrud amet",
     "description": "Est consequat deserunt officia fugiat culpa in aliquip consectetur. Est nostrud occaecat cillum elit officia officia ea magna et minim officia commodo sunt. Deserunt duis minim magna nostrud enim enim commodo sit elit nostrud cillum aliquip est qui.",
+    "cost": 100,
     "isTopRated": true,
     "date": "2017-01-18T19:10:51+00:00",
     "authors": [
@@ -121,6 +126,7 @@
     "id": 1672,
     "name": "officia exercitation tempor officia",
     "description": "Laborum reprehenderit tempor do cillum ipsum consequat deserunt. In enim amet laboris occaecat sit cillum. Voluptate tempor consequat incididunt non pariatur eiusmod sint duis est.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2017-06-06T00:07:32+00:00",
     "authors": [
@@ -146,6 +152,7 @@
     "id": 3946,
     "name": "nisi ex incididunt aliquip",
     "description": "Commodo excepteur velit in consectetur sit esse Lorem occaecat labore laboris et. Deserunt fugiat ea aliquip labore culpa fugiat labore incididunt. Duis ex mollit quis aliquip eiusmod.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-11-03T04:24:34+00:00",
     "authors": [
@@ -171,6 +178,7 @@
     "id": 8464,
     "name": "minim amet proident est",
     "description": "Fugiat velit aliquip quis veniam culpa consequat fugiat voluptate magna exercitation eiusmod sit qui. Dolor nostrud enim commodo non eu ut nostrud aliquip aute anim ex veniam eiusmod esse. Eu nulla non dolore et voluptate labore ipsum est sit nisi qui.",
+    "cost": 100,
     "isTopRated": true,
     "date": "2017-07-07T10:38:59+00:00",
     "authors": [
@@ -196,6 +204,7 @@
     "id": 5834,
     "name": "nulla eu ex aute",
     "description": "Aute anim dolore duis quis ut reprehenderit dolore nostrud duis est cupidatat consequat. Ea ipsum duis esse est ullamco nulla sunt culpa. Proident Lorem ipsum Lorem incididunt deserunt dolore.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-04-30T18:46:36+00:00",
     "authors": [
@@ -211,6 +220,7 @@
     "id": 9664,
     "name": "proident do non aute",
     "description": "Ut aliqua exercitation in sit non adipisicing amet. Occaecat et fugiat minim officia ut in non et nulla. Nisi incididunt culpa ad magna do laboris.",
+    "cost": 100,
     "isTopRated": true,
     "date": "2017-02-18T22:01:43+00:00",
     "authors": [
@@ -241,6 +251,7 @@
     "id": 8194,
     "name": "adipisicing magna exercitation ea",
     "description": "Duis aliquip ut et irure. Ad excepteur elit quis non aliquip tempor voluptate cillum. Reprehenderit proident sint enim consectetur ad duis velit aute cillum ullamco dolore nostrud magna amet.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-09-09T12:00:31+00:00",
     "authors": [
@@ -271,6 +282,7 @@
     "id": 5688,
     "name": "ex laborum est cupidatat",
     "description": "Quis tempor eiusmod esse id minim anim. Ut ipsum deserunt non mollit excepteur laborum ex occaecat labore dolore cupidatat elit. Incididunt fugiat sint eu Lorem culpa tempor nisi nostrud nisi.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2017-11-18T09:06:11+00:00",
     "authors": [
@@ -296,6 +308,7 @@
     "id": 2698,
     "name": "aute do ipsum sint",
     "description": "Quis laboris laboris nostrud cupidatat sit labore sint amet ipsum elit deserunt in tempor. Excepteur dolor elit enim nostrud consequat eu ullamco ullamco pariatur consectetur duis voluptate. Irure laborum occaecat id veniam culpa aliqua dolor cupidatat enim sunt fugiat.",
+    "cost": 100,
     "isTopRated": true,
     "date": "2017-07-14T10:57:08+00:00",
     "authors": [
@@ -341,6 +354,7 @@
     "id": 6605,
     "name": "adipisicing culpa esse consequat",
     "description": "Do enim consequat nisi elit nostrud laborum et. Excepteur minim eu eiusmod minim ullamco aute in velit officia enim. Proident incididunt quis ex nulla amet nisi deserunt fugiat.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-12-11T18:16:42+00:00",
     "authors": [
@@ -356,6 +370,7 @@
     "id": 6703,
     "name": "esse veniam labore labore",
     "description": "Amet mollit duis et excepteur. Esse amet non et nisi velit esse ex aute do excepteur reprehenderit. Ipsum voluptate cupidatat quis et exercitation irure elit sint amet.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-03-21T19:22:57+00:00",
     "authors": [
@@ -386,6 +401,7 @@
     "id": 4276,
     "name": "nulla veniam ad Lorem",
     "description": "Cupidatat eu aliquip magna anim do nulla duis cillum aliquip pariatur cupidatat. Tempor voluptate eu ipsum voluptate do deserunt tempor excepteur Lorem ipsum incididunt incididunt. Mollit incididunt amet tempor dolor tempor commodo ea laboris laborum exercitation occaecat ex.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-11-13T19:23:11+00:00",
     "authors": [
@@ -406,6 +422,7 @@
     "id": 5,
     "name": "aliquip nulla nostrud occaecat",
     "description": "Fugiat tempor commodo laboris duis voluptate sint tempor in. Adipisicing enim Lorem sint enim ipsum adipisicing velit amet qui labore voluptate tempor nulla. Aliqua sit cillum ea officia.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2016-08-13T02:14:40+00:00",
     "authors": [
@@ -436,6 +453,7 @@
     "id": 5829,
     "name": "est cillum aliqua est",
     "description": "Laborum elit ut amet ut ea eu est nisi qui esse deserunt deserunt. Ipsum duis deserunt velit et sunt deserunt cillum duis esse cupidatat adipisicing exercitation excepteur fugiat. Voluptate veniam ipsum deserunt minim labore qui aliquip laboris irure magna nisi.",
+    "cost": 100,
     "isTopRated": false,
     "date": "2017-05-13T09:35:20+00:00",
     "authors": [

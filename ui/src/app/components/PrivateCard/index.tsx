@@ -6,16 +6,9 @@ interface Props {
     course: Course;
     order?: () => void;
 }
-
-const PLACEHOLDER_IMG = require('../../../assets/images/placeholder.png');
-
 const PrivateCard = (props: Props): JSX.Element => {
     return (
         <div className={props.course.isTopRated ? 'cc-card cc-card_top-rated' : 'cc-card'}>
-            <img
-                className='cc-card__photo'
-                src={props.course.photoUrl ? props.course.photoUrl : PLACEHOLDER_IMG}
-                alt='placeholder' />
             <div className='cc-card__container'>
                 <div className='cc-card__title'>
                     {props.course.name}
