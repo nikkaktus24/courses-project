@@ -21,14 +21,14 @@ export class CoursesService {
         };
     }
 
-    public static fetchCourses(start: number, pageNumber: number, sort: SortTypes = SortTypes.Date, textFragment?: string) {
+    public static fetchCourses(start: number, pageNumber: number, sort: SortTypes = SortTypes.Date, textFragment?: string, filter?: SortTypes,) {
         return async (dispatch: any) => {
             dispatch({
                 type: CourseConstants.FETCH_COURSES,
             });
             try {
 
-                const response: ICourseDTO[] = await CourseApi.fetchCourses(start, pageNumber * COURSE_COUNT, sort, textFragment);
+                const response: ICourseDTO[] = await CourseApi.fetchCourses(start, pageNumber * COURSE_COUNT, sort, textFragment, filter);
                 const payload: Course[] = response.map((item: ICourseDTO) => Course.fromServer(item));
 
                 dispatch({

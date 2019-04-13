@@ -21,16 +21,15 @@ interface Props {
     store: string[];
     isLoading?: boolean;
     error: string;
-    fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string) => void;
+    fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string, filter?: SortTypes) => void;
     clear: () => void;
     order: (store: string[]) => void;
     deleteCourse: (id: string) => void;
 }
 
 interface State {
-    login: string;
-    password: string;
-    isDisabled: boolean;
+    sort: SortTypes;
+    textFragment: string;
 }
 
 const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
@@ -47,8 +46,8 @@ const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
 const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
     return {
         ...props,
-        fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string) => {
-            dispatch(CoursesService.fetchCourses(start, pageNumber, sort, textFragment));
+        fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string, filter?: SortTypes,) => {
+            dispatch(CoursesService.fetchCourses(start, pageNumber, sort, textFragment, filter));
         },
         clear: () => {
             dispatch(CoursesService.clearErrors());
@@ -64,19 +63,14 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
 
 class CoursesFlow extends React.PureComponent<Props, any> {
     public pageNumber: number = 1;
+    public state: State;
 
     constructor(props: Props) {
         super(props);
-    }
-
-    public onType = (event: React.SyntheticEvent<HTMLInputElement>): void => {
-        const target: HTMLInputElement = event.target as HTMLInputElement;
-
-        if (target.value.length > 4) {
-            this.props.fetchCourses(0, 1, SortTypes.Date, target.value);
-        } else if (!target.value) {
-            this.props.fetchCourses(0, 1);
-        }
+        this.state = {
+            textFragment: '',
+            sort: SortTypes.Date,
+        };
     }
 
     public componentDidMount(): void {
@@ -85,7 +79,12 @@ class CoursesFlow extends React.PureComponent<Props, any> {
 
     public order = (id: string): () => any => {
         const store: string[] = [...this.props.store, id];
-       return () => this.props.order(store);
+        return () => this.props.order(store);
+    }
+
+    public onChange = (event: React.SyntheticEvent<HTMLElement>): void => {
+        const target: HTMLInputElement = event.target as HTMLInputElement;
+        this.setState({[target.name]: target.value}, this.fetchCourses);
     }
 
     public deleteCourse = (id: string): () => any => {
@@ -95,9 +94,13 @@ class CoursesFlow extends React.PureComponent<Props, any> {
         };
     }
 
+    public fetchCourses(): void {
+        this.props.fetchCourses(0, this.pageNumber, this.state.sort, this.state.textFragment);
+    }
+
     public loadMore = (): void => {
         this.pageNumber++;
-        this.props.fetchCourses(0, this.pageNumber);
+        this.fetchCourses();
     }
 
     public render(): React.ReactElement {
@@ -108,29 +111,32 @@ class CoursesFlow extends React.PureComponent<Props, any> {
             <div className='cc-course-flow'>
                 <form className='cc-course-flow__dashboard cc-form'>
                     <div className='cc-form__contro cc-course-flow__typeahead'>
-                        <label className='cc-form__label' htmlFor='login'>Поиск курсов</label>
+                        <label className='cc-form__label' htmlFor='textFragment'>Поиск курсов</label>
                         <input
-                            onChange={this.onType}
+                            onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
-                            name='login'
-                            id='login' />
+                            name='textFragment'
+                            id='textFragment' />
                     </div>
-                    <div className='cc-form__contro cc-course-flow__filter'>
-                        <label className='cc-form__label' htmlFor='login'>Сортировать по</label>
+                    {/* <div className='cc-form__contro cc-course-flow__filter'>
+                        <label className='cc-form__label' htmlFor='filter'>Фильтровать по</label>
                         <select
+                            onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
-                            name='login'
-                            id='login'>
+                            name='filter'
+                            id='filter'>
                                 <option value={null}></option>
                                 {courseOptions && courseOptions.map((item: Entity<SortTypes>) => <option value={item.id} key={item.id}>{item.name}</option>)}
                             </select>
-                    </div>
+                    </div> */}
                     <div className='cc-form__contro cc-course-flow__filter'>
-                        <label className='cc-form__label' htmlFor='login'>Фильтровать по</label>
+                        <label className='cc-form__label' htmlFor='sort'>Сортировать по</label>
                         <select
+                            onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
-                            name='login'
-                            id='login'>
+                            name='sort'
+                            defaultValue={this.state.sort}
+                            id='sort'>
                                 <option value={null}></option>
                                 {courseOptions && courseOptions.map((item: Entity<SortTypes>) => <option value={item.id} key={item.id}>{item.name}</option>)}
                             </select>

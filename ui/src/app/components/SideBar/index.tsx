@@ -16,10 +16,10 @@ const SideBar = (props: SideBarProps): JSX.Element => {
                 <div className='cc-sidebar__logo'>{appSettings.title}</div>
                 <div className='cc-sidebar-navigation'>
                     {/* <div className='cc-sidebar-navigation__item'>Мои заказы</div> */}
+                    {(props.user.isAdmin) ? <div className='cc-sidebar-navigation__item'>Добавить курс</div> : null}
                     <div className='cc-sidebar-navigation__item'>Каталог курсов</div>
                     <div className='cc-sidebar-navigation__item'>Корзина</div>
                     {/* <div className='cc-sidebar-navigation__item'>Авторство</div> */}
-                    {/* <div className='cc-sidebar-navigation__item'>Управление</div> */}
                     <div onClick={props.logout} className='cc-sidebar-navigation__item'>Выйти</div>
                 </div>
                 {props.store &&

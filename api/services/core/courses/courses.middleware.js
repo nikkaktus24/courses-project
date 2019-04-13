@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const url = require('url');
+const moment = require('moment');
 
 module.exports = (server) => {
 
@@ -15,19 +16,19 @@ module.exports = (server) => {
 			id = query.id,
 			courses = server.db.getState().courses;
 		
-			if (!!query.textFragment && !query.filter) {
+			if (!!query.textFragment) {
 				courses = courses.filter((course) => course.name.concat(course.description).toUpperCase().indexOf(query.textFragment.toUpperCase()) >= 0);
-			}
-
-			if (!!query.textFragment && query.filter) {
-				courses = courses.filter((course) => course[query.filter].toUpperCase().indexOf(query.textFragment.toUpperCase()) >= 0);
 			}
 		
 		if(sort) {
 			courses.sort((a, b) => {
-				const c = new Date(Date.parse(b.date));
-				const d = new Date(Date.parse(a.date));
-				return c.valueOf() - d.valueOf();
+				if (sort === 'date') {
+					const c = new moment(b.date);
+					const d = new moment(a.date);
+					return c.valueOf() - d.valueOf();
+				} else {
+					return b[sort] - a[sort];
+				}
 			});
 		}
 		

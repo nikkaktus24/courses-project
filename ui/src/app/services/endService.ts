@@ -22,9 +22,13 @@ export class EndService {
         return `${BASE_URL}/courses/${id}`;
     }
 
-    public static getCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string): string {
+    public static getCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes): string {
         const url: string = `${BASE_URL}/courses?start=${start}&count=${pageNumber}&sort=${sort}`;
-        return textFragment ? url + `&textFragment=${textFragment}` : url;
+        if (textFragment) {
+            return filter ? url + `&filter=${filter}&textFragment=${textFragment}` : url + `&textFragment=${textFragment}`;
+        } else {
+            return url;
+        }
     }
 
     constructor() {}

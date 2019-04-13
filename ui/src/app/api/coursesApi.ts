@@ -6,8 +6,8 @@ import getResponse from '../helpers/getResponse';
 import { Course } from '../models/Courses/Courses';
 
 export class CourseApi {
-    public static async fetchCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string): Promise<ICourseDTO[]> {
-        return getResponse(axios.get<ICourseDTO[]>(EndService.getCourses(start, pageNumber, sort, textFragment)));
+    public static async fetchCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes,): Promise<ICourseDTO[]> {
+        return getResponse(axios.get<ICourseDTO[]>(EndService.getCourses(start, pageNumber, sort, textFragment, filter)));
     }
 
     public static async createCourse(course: Course): Promise<ICourseDTO> {
