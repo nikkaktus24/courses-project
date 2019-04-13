@@ -2,6 +2,7 @@ import * as React from 'react';
 import './index.scss';
 import { Course } from '../../models/Courses/Courses';
 import { timeConvert } from '../../helpers/timeConverter';
+import { Link } from 'react-router-dom';
 
 interface Props {
     course: Course;
@@ -27,7 +28,7 @@ const Card = (props: Props): JSX.Element => {
             <div className='cc-card__dashboard'>
                 <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>
                 {props.isAdmin && (
-                [<button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button>,
+                [<Link to={`/course/${props.course.id}`}><button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button></Link>,
                 <button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button>]
                 )}
             </div>

@@ -21,6 +21,7 @@ const initialState: ICoursesState = {
 
 export function coursesReducer(state = initialState, action: ActionPayload<any>): ICoursesState {
     switch (action.type) {
+        case CourseConstants.GET_COURSE_BY_ID:
         case CourseConstants.CREATE_COURSE:
         case CourseConstants.DELETE_COURSE:
         case CourseConstants.FETCH_COURSES: {
@@ -36,6 +37,8 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.UPDATE_COURSE_OK:
+        case CourseConstants.GET_COURSE_BY_ID_OK:
         case CourseConstants.CREATE_COURSE_OK: {
             return {
                 ...state,
@@ -49,6 +52,8 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.GET_COURSE_BY_ID_FAIL:
+        case CourseConstants.UPDATE_COURSE_FAIL:
         case CourseConstants.CREATE_COURSE_FAIL:
         case CourseConstants.DELETE_COURSE_FAIL:
         case CourseConstants.FETCH_COURSES_FAIL: {

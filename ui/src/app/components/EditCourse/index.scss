@@ -3,36 +3,9 @@
 @import '../../../assets/styles/variables/sizes.scss';
 @import '../../../assets/styles/variables/colors.scss';
 
-.cc-course-flow {
+.cc-edit-course {
 
-    &__typeahead {
-        max-width: 300px;
-        margin-right: 15px;
+    &__title {
+        margin-bottom: 40px;
     }
-
-    &__dashboard {
-        @include flexbox(row, flex-start);
-    }
-
-    &__courses {
-        @include flexbox(column, flex-start, flex-start);
-        margin-top: 20px;
-    }
-
-    &__no-data-available {
-        @include font-semibold();
-        text-transform: uppercase;
-    }
-
-    &__button {
-        max-width: $card-width;
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    &__filter {
-        max-width: 255px;
-        margin-right: 15px;
-    }
-
 }

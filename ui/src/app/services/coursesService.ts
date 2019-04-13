@@ -69,15 +69,18 @@ export class CoursesService {
     }
 
 
-    public static getCourseById(id: number) {
+    public static getCourseById(id: string) {
         return async (dispatch: any) => {
             dispatch({
                 type: CourseConstants.GET_COURSE_BY_ID,
             });
             try {
+                const response: ICourseDTO = await CourseApi.getCourseById(id);
+                const payload: Course = Course.fromServer(response);
 
                 dispatch({
                     type: CourseConstants.GET_COURSE_BY_ID_OK,
+                    payload,
                 });
             } catch (err) {
                 dispatch({
@@ -89,15 +92,18 @@ export class CoursesService {
     }
 
 
-    public static updateCourse(course: Course) {
+    public static updateCourse(id: string, course: CourseCreateRequest) {
         return async (dispatch: any) => {
             dispatch({
                 type: CourseConstants.UPDATE_COURSE,
             });
             try {
+                const response: ICourseDTO = await CourseApi.updateCourse(id, course);
+                const payload: Course = Course.fromServer(response);
 
                 dispatch({
                     type: CourseConstants.UPDATE_COURSE_OK,
+                    payload,
                 });
             } catch (err) {
                 dispatch({

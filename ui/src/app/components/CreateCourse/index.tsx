@@ -19,6 +19,10 @@ interface Props {
     clear: () => void;
 }
 
+interface State {
+    isEdited: boolean;
+}
+
 const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
     return {
         ...props,
@@ -41,14 +45,22 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
 };
 
 class CreateCourse extends React.PureComponent<Props, any> {
+    public state: State;
+
     constructor(props: Props) {
         super(props);
+        this.state = {
+            isEdited: false,
+        };
     }
 
     public createCourse(): (courseForm: ICourseForm) => void {
         return (courseForm: ICourseForm) => {
             const request: CourseCreateRequest = CourseCreateRequest.toRequest(courseForm);
             this.props.createCourse(request);
+            this.setState({
+                isEdited: true,
+            });
         };
     }
 
@@ -57,7 +69,7 @@ class CreateCourse extends React.PureComponent<Props, any> {
     }
 
     public render(): React.ReactElement {
-        if (this.props.course) {
+        if (this.state.isEdited) {
             return (
                 <div className='cc-create-course'>
                     <div className='cc-text cc-text__h1 cc-create-course__title'>Курс успешно создан (id: {this.props.course.id})</div>

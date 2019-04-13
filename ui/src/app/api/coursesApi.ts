@@ -19,8 +19,8 @@ export class CourseApi {
         return getResponse(axios.get<ICourseDTO>(EndService.courseById(id)));
     }
 
-    public static async updateCourse(course: Course): Promise<ICourseDTO> {
-        return getResponse(axios.patch<ICourseDTO>(EndService.courseById(course.id), course));
+    public static async updateCourse(id: string, course: CourseCreateRequest): Promise<ICourseDTO> {
+        return getResponse(axios.patch<ICourseDTO>(EndService.courseById(id), course));
     }
 
     public static async deleteCourse(id: string): Promise<void> {

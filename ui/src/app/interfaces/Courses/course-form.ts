@@ -1,8 +1,8 @@
 export interface ICourseForm {
     name: string;
     date: string;
-    length: number;
-    cost: number;
+    length: any;
+    cost: any;
     description: string;
     isTopRated: boolean;
 }

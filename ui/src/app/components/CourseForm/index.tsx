@@ -34,19 +34,22 @@ class CourseForm extends React.PureComponent<Props, any> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            name: null,
-            description: null,
-            cost: null,
-            length: null,
-            isTopRated: false,
-            date: null,
+            name: props.course ? props.course.name : '',
+            description: props.course ? props.course.description : '',
+            cost: props.course ? props.course.cost : '',
+            length: props.course ? props.course.length : '',
+            isTopRated: props.course ? props.course.isTopRated : false,
+            date: props.course ? props.course.date.format('DD/MM/YYYY') : '',
             isDisabled: true,
         };
     }
 
     public onChange = (event: React.SyntheticEvent<HTMLElement>): void => {
         const target: HTMLInputElement = event.target as HTMLInputElement;
-        this.setState({[target.name]: target.value});
+        this.setState({[target.name]: target.value}, this.validation);
+    }
+
+    public componentDidMount(): void {
         this.validation();
     }
 
@@ -72,6 +75,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                             onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
                             name='name'
+                            value={this.state.name}
                             placeholder='Название'
                             id='name' />
                     </div>
@@ -81,6 +85,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                             onChange={this.onChange}
                             name='description'
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            value={this.state.description}
                             placeholder='Описание'
                             id='description'></textarea>
                     </div>
@@ -89,6 +94,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                         <input
                             onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            value={this.state.length}
                             name='length'
                             placeholder='Продолжительность'
                             id='length' />
@@ -98,6 +104,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                         <input
                             onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            value={this.state.cost}
                             name='cost'
                             placeholder='Стоимость'
                             id='cost' />
@@ -108,6 +115,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                             type='text'
                             onChange={this.onChange}
                             className={this.props.error ? 'cc-form__input cc-form__input_error' : 'cc-form__input'}
+                            value={this.state.date}
                             name='date'
                             placeholder='ДД/ММ/ГГГГ'
                             id='date' />
@@ -117,6 +125,7 @@ class CourseForm extends React.PureComponent<Props, any> {
                         <input
                             type='checkbox'
                             onChange={this.onChange}
+                            checked={this.state.isTopRated}
                             name='isTopRated'
                             id='isTopRated' />
                     </div>

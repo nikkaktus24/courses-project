@@ -44,7 +44,7 @@ const App = (props: Props): JSX.Element => {
                 <Switch>
                     <Redirect exact strict from='/' to='/courses' />
                     <Route path='/courses' component={CoursesFlow} />
-                    <Route path='/card/:id' component={EditCourse} />
+                    <Route path='/course/:id' component={EditCourse} />
                     <Route path='/create' component={CreateCourse} />
                 </Switch>
             </div>
