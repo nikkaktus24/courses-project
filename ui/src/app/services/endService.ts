@@ -15,7 +15,7 @@ export class EndService {
     }
 
     public static createCourse(): string {
-        return `${BASE_URL}/courses/course`;
+        return `${BASE_URL}/courses/`;
     }
 
     public static courseById(id: string): string {

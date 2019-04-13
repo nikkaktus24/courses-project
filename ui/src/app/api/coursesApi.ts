@@ -1,3 +1,4 @@
+import { CourseCreateRequest } from './../models/Courses/CourseRequest';
 import { SortTypes } from './../enums/sort-types';
 import { ICourseDTO } from './../interfaces/Courses/courses-dto';
 import { EndService } from './../services/endService';
@@ -10,7 +11,7 @@ export class CourseApi {
         return getResponse(axios.get<ICourseDTO[]>(EndService.getCourses(start, pageNumber, sort, textFragment, filter)));
     }
 
-    public static async createCourse(course: Course): Promise<ICourseDTO> {
+    public static async createCourse(course: CourseCreateRequest): Promise<ICourseDTO> {
         return getResponse(axios.post<ICourseDTO>(EndService.createCourse(), course));
     }
 

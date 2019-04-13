@@ -2,6 +2,7 @@ import * as React from 'react';
 import './index.scss';
 import { appSettings } from '../../../appSettings';
 import { UserData } from '../../models/Shared/UserData';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export interface SideBarProps {
     user: UserData;
@@ -16,8 +17,8 @@ const SideBar = (props: SideBarProps): JSX.Element => {
                 <div className='cc-sidebar__logo'>{appSettings.title}</div>
                 <div className='cc-sidebar-navigation'>
                     {/* <div className='cc-sidebar-navigation__item'>Мои заказы</div> */}
-                    {(props.user.isAdmin) ? <div className='cc-sidebar-navigation__item'>Добавить курс</div> : null}
-                    <div className='cc-sidebar-navigation__item'>Каталог курсов</div>
+                    {(props.user.isAdmin) ? <Link to='/create'><div className='cc-sidebar-navigation__item'>Добавить курс</div></Link> : null}
+                    <Link to='/courses'><div className='cc-sidebar-navigation__item'>Каталог курсов</div></Link>
                     <div className='cc-sidebar-navigation__item'>Корзина</div>
                     {/* <div className='cc-sidebar-navigation__item'>Авторство</div> */}
                     <div onClick={props.logout} className='cc-sidebar-navigation__item'>Выйти</div>

@@ -23,8 +23,8 @@ module.exports = (server) => {
 		if(sort) {
 			courses.sort((a, b) => {
 				if (sort === 'date') {
-					const c = new moment(b.date);
-					const d = new moment(a.date);
+					const c = moment(b.date);
+					const d = moment(a.date);
 					return c.valueOf() - d.valueOf();
 				} else {
 					return b[sort] - a[sort];

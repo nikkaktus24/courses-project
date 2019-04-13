@@ -5,10 +5,10 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import CoursesFlow from './CoursesFlow';
 import { IAppState } from '../store/reducers';
 import { connect } from 'react-redux';
-import { SharedService } from '../services/sharedService';
 import { UserData } from '../models/Shared/UserData';
 import { AuthService } from '../services/authService';
-import PrivateCard from './PrivateCard';
+import CreateCourse from './CreateCourse';
+import EditCourse from './EditCourse';
 
 interface Props {
     children: React.ReactNode;
@@ -42,8 +42,10 @@ const App = (props: Props): JSX.Element => {
             </div>
             <div className='cc-app__main'>
                 <Switch>
-                    <Route exact={true} path='/' component={CoursesFlow} />
-                    <Route path='/card/:id' component={PrivateCard} />
+                    <Redirect exact strict from='/' to='/courses' />
+                    <Route path='/courses' component={CoursesFlow} />
+                    <Route path='/card/:id' component={EditCourse} />
+                    <Route path='/create' component={CreateCourse} />
                 </Switch>
             </div>
         </div>

@@ -7,6 +7,7 @@ import { UserConstants } from '../store/constants/user';
 import { SessionModel } from '../models/Auth/SessionModel';
 import { TokenModel } from '../models/Auth/TokenModel';
 import Axios from 'axios';
+import getError from '../helpers/getError';
 
 const TOKEN_NAME: string = 'USER_TOKEN';
 
@@ -62,7 +63,7 @@ export class AuthService {
             } catch (err) {
                 dispatch({
                     type: UserConstants.FETCH_USER_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };
@@ -87,7 +88,7 @@ export class AuthService {
             } catch (err) {
                 dispatch({
                     type: UserConstants.FETCH_USER_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };

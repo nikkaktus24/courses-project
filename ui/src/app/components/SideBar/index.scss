@@ -29,6 +29,7 @@
 
         &__item {
             @include font-semibold();
+            color: $color-white;
             background-color: darken($color: $color-sidebar, $amount: 3%);
             padding: 20px;
             cursor: pointer;

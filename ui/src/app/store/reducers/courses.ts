@@ -7,18 +7,21 @@ export type ICoursesState = {
     courses: Course[];
     store: string[];
     error: string;
+    course: Course;
     isLoading: boolean;
 };
 
 const initialState: ICoursesState = {
     courses: void 0,
     store: [],
+    course: void 0,
     error: void 0,
     isLoading: false,
 };
 
 export function coursesReducer(state = initialState, action: ActionPayload<any>): ICoursesState {
     switch (action.type) {
+        case CourseConstants.CREATE_COURSE:
         case CourseConstants.DELETE_COURSE:
         case CourseConstants.FETCH_COURSES: {
             return {
@@ -33,12 +36,20 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.CREATE_COURSE_OK: {
+            return {
+                ...state,
+                course: action.payload,
+                isLoading: initialState.isLoading,
+            };
+        }
         case CourseConstants.DELETE_COURSE_OK: {
             return {
                 ...state,
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.CREATE_COURSE_FAIL:
         case CourseConstants.DELETE_COURSE_FAIL:
         case CourseConstants.FETCH_COURSES_FAIL: {
             return {
@@ -51,6 +62,12 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
             return {
                 ...state,
                 store: action.payload,
+            };
+        }
+        case CourseConstants.CLEAR: {
+            return {
+                ...state,
+                ...initialState,
             };
         }
         default:

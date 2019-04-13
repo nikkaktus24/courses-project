@@ -1,8 +1,10 @@
+import { CourseCreateRequest } from './../models/Courses/CourseRequest';
 import { CourseApi } from './../api/coursesApi';
 import { ICourseDTO } from './../interfaces/Courses/courses-dto';
 import { CourseConstants } from './../store/constants/courses';
 import { Course } from '../models/Courses/Courses';
 import { SortTypes } from '../enums/sort-types';
+import getError from '../helpers/getError';
 
 const COURSE_COUNT: number = 8;
 
@@ -38,26 +40,29 @@ export class CoursesService {
             } catch (err) {
                 dispatch({
                     type: CourseConstants.FETCH_COURSES_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };
     }
 
-    public static createCourse(course: Course) {
+    public static createCourse(course: CourseCreateRequest) {
         return async (dispatch: any) => {
             dispatch({
                 type: CourseConstants.CREATE_COURSE,
             });
             try {
+                const response: ICourseDTO = await CourseApi.createCourse(course);
+                const payload: Course = Course.fromServer(response);
 
                 dispatch({
                     type: CourseConstants.CREATE_COURSE_OK,
+                    payload
                 });
             } catch (err) {
                 dispatch({
                     type: CourseConstants.CREATE_COURSE_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };
@@ -77,7 +82,7 @@ export class CoursesService {
             } catch (err) {
                 dispatch({
                     type: CourseConstants.GET_COURSE_BY_ID_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };
@@ -97,7 +102,7 @@ export class CoursesService {
             } catch (err) {
                 dispatch({
                     type: CourseConstants.UPDATE_COURSE_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };
@@ -110,8 +115,7 @@ export class CoursesService {
                 type: CourseConstants.DELETE_COURSE,
             });
             try {
-
-                CourseApi.deleteCourse(id);
+                await CourseApi.deleteCourse(id);
 
                 dispatch({
                     type: CourseConstants.DELETE_COURSE_OK,
@@ -119,7 +123,7 @@ export class CoursesService {
             } catch (err) {
                 dispatch({
                     type: CourseConstants.DELETE_COURSE_FAIL,
-                    payload: err.response.data,
+                    payload: getError(err),
                 });
             }
         };

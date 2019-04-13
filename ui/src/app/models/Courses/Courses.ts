@@ -26,7 +26,6 @@ export class Course {
         course.length = response.length;
         course.description = response.description;
         course.cost = response.cost;
-        course.authors = response.authors.map((entity: IEntityDTO<string>) => Entity.fromServer<string>(entity));
         course.isTopRated = response.isTopRated;
 
         return course;

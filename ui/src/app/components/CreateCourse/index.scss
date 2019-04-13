@@ -1,0 +1,12 @@
+@import '../../../assets/styles/mixins/flexbox.scss';
+@import '../../../assets/styles/mixins/fonts.scss';
+@import '../../../assets/styles/variables/sizes.scss';
+@import '../../../assets/styles/variables/colors.scss';
+
+.cc-create-course {
+
+    &__title {
+        margin-bottom: 40px;
+    }
+    
+}

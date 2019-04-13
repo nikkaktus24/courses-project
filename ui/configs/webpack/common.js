@@ -32,6 +32,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: 'url-loader?importLoaders=1&limit=100000',
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
           'file-loader?hash=sha512&digest=hex&name=img/[hash].[ext]',
