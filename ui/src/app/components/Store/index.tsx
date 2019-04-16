@@ -9,10 +9,13 @@ import Loader from '../Loader';
 import CourseForm from '../CourseForm';
 import { ICourseForm } from '../../interfaces/Courses/course-form';
 import { Course } from '../../models/Courses/Courses';
+import Card from '../Card';
+import { find } from 'lodash';
 
 interface Props {
     isLoading?: boolean;
-    course: Course;
+    store: string[];
+    courses: Course[];
     error: string;
     createCourse: (course: CourseCreateRequest) => void;
     clear: () => void;
@@ -25,7 +28,8 @@ interface State {
 const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
     return {
         ...props,
-        course: state.courses.course,
+        courses: state.courses.courses,
+        store: state.courses.store,
         isLoading: state.courses.isLoading,
         error: state.user.error,
     };
@@ -45,12 +49,17 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
 
 class Store extends React.PureComponent<Props, any> {
     public state: State;
+    public cost: number = 0;
 
     constructor(props: Props) {
         super(props);
         this.state = {
             isEdited: false,
         };
+    }
+
+    public componentDidMount(): void {
+        this.calculateCost();
     }
 
     public createCourse(): (courseForm: ICourseForm) => void {
@@ -63,28 +72,40 @@ class Store extends React.PureComponent<Props, any> {
         };
     }
 
-    public componentWillUnmount(): void {
-        this.props.clear();
+    public findCourse(item: Course): JSX.Element {
+        return find(this.props.store, (store: string) => store === item.id) ?
+            <Card isOrderable={false} course={item} key={item.id}></Card>
+            : null;
+    }
+
+    public calculateCost(): void {
+        this.props.courses.forEach((item: Course) => {
+            if (find(this.props.store, (store: string) => store === item.id)) {
+                this.cost = item.cost + this.cost;
+            }
+        });
     }
 
     public render(): React.ReactElement {
-        if (this.state.isEdited) {
-            return (
-                <div className='cc-create-course'>
-                    <div className='cc-text cc-text__h1 cc-create-course__title'>Курс успешно создан (id: {this.props.course.id})</div>
-                    <Link to='/courses'><button type='button' className='cc-btn cc-btn_red-outline'>Перейти на страницу курсов</button></Link>
+        return (
+            <div className='cc-course-flow'>
+                <div className='cc-text cc-text__h1 cc-edit-course__title'>Корзина</div>
+            {(this.props.store && this.props.store.length) ?
+                <div>
+                    <div className='cc-course-flow__dashboard cc-form'>
+                        Сумма {this.cost}
+                        <button className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Заказать</button>
+                    </div>
+                    <div className='cc-course-flow__courses'>
+                        {this.props.courses &&
+                            this.props.courses.map((item: Course) => this.findCourse(item))}
+                    </div>
                 </div>
-            );
-        } else {
-            return (
-                <div className='cc-create-course'>
-                    <div className='cc-text cc-text__h1 cc-create-course__title'>Создание курса</div>
-                    <CourseForm callBack={this.createCourse()}></CourseForm>
-                    {this.props.isLoading ? <Loader /> : null}
-                </div>
-            );
-        }
-
+                : <div className='cc-course-flow__no-data-available'>Корзина пуста</div>}
+            {this.props.isLoading &&
+                <Loader />}
+            </div>
+        );
     }
 }
 

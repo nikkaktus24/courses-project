@@ -19,10 +19,16 @@ const SideBar = (props: SideBarProps): JSX.Element => {
                     {/* <div className='cc-sidebar-navigation__item'>Мои заказы</div> */}
                     {(props.user.isAdmin) ? <Link to='/create'><div className='cc-sidebar-navigation__item'>Добавить курс</div></Link> : null}
                     <Link to='/courses'><div className='cc-sidebar-navigation__item'>Каталог курсов</div></Link>
-                    <div className='cc-sidebar-navigation__item'>Корзина</div>
+                    <Link to='/store'><div className='cc-sidebar-navigation__item'>Корзина</div></Link>
                     {/* <div className='cc-sidebar-navigation__item'>Авторство</div> */}
                     <div onClick={props.logout} className='cc-sidebar-navigation__item'>Выйти</div>
                 </div>
+                {props.user &&
+                <div className='cc-sidebar__store'>
+                    <span className='cc-sidebar__session-caption'>На вашем счету: </span>
+                    <span className='cc-sidebar__login'>{props.user.coins}</span>
+                    <span className='cc-sidebar__session-caption'> монет</span>
+                </div>}
                 {props.store &&
                 <div className='cc-sidebar__store'>
                     <span className='cc-sidebar__session-caption'>В вашей корзине: </span>

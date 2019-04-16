@@ -8,6 +8,7 @@
       "last": "Ihnatsenka"
     },
     "login": "nikkaktus24",
+    "coins": 100,
     "password": "123321",
     "isAdmin": true
   },
@@ -20,6 +21,7 @@
     },
     "login": "Morales",
     "password": "id",
+    "coins": 0,
     "isAdmin": false
   }
 ]

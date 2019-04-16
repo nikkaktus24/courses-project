@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 
 interface Props {
     course: Course;
-    isAdmin: boolean;
-    order: () => void;
-    deleteCourse: () => void;
+    isOrderable: boolean;
+    isAdmin?: boolean;
+    order?: () => void;
+    deleteCourse?: () => void;
+    deleteStoreCourse?: () => void;
 }
 
 const Card = (props: Props): JSX.Element => {
@@ -25,13 +27,16 @@ const Card = (props: Props): JSX.Element => {
                 </div>
                 <div className='cc-card__desc'>{props.course.description}</div>
             </div>
-            <div className='cc-card__dashboard'>
-                <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>
-                {props.isAdmin && (
-                [<Link to={`/course/${props.course.id}`}><button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button></Link>,
-                <button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button>]
-                )}
-            </div>
+            {props.isOrderable ?
+                <div className='cc-card__dashboard'>
+                    <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>
+                    {props.isAdmin && (
+                    [<Link to={`/course/${props.course.id}`}><button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button></Link>,
+                        <button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button>]
+                    )}
+                </div>
+                : <div className='cc-card__dashboard'><button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button></div>
+            }
         </div>
     );
 };

@@ -9,6 +9,7 @@ import { UserData } from '../models/Shared/UserData';
 import { AuthService } from '../services/authService';
 import CreateCourse from './CreateCourse';
 import EditCourse from './EditCourse';
+import Store from './Store';
 
 interface Props {
     children: React.ReactNode;
@@ -46,6 +47,7 @@ const App = (props: Props): JSX.Element => {
                     <Route path='/courses' component={CoursesFlow} />
                     <Route path='/course/:id' component={EditCourse} />
                     <Route path='/create' component={CreateCourse} />
+                    <Route path='/store' component={Store} />
                 </Switch>
             </div>
         </div>

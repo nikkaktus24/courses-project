@@ -146,7 +146,7 @@ class CoursesFlow extends React.PureComponent<Props, any> {
                 <Loader />}
                 <div className='cc-course-flow__courses'>
                     {this.props.courses &&
-                this.props.courses.map((item: Course) => <Card deleteCourse={this.deleteCourse(item.id)} isAdmin={this.props.user.isAdmin} order={this.order(item.id)} course={item} key={item.id}></Card>)}
+                this.props.courses.map((item: Course) => <Card isOrderable={true} deleteCourse={this.deleteCourse(item.id)} isAdmin={this.props.user.isAdmin} order={this.order(item.id)} course={item} key={item.id}></Card>)}
                 </div>
                 {(this.props.courses && this.props.courses.length) ? <button onClick={this.loadMore} className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Загрузить еще</button> : null}
                     {(this.props.courses && !this.props.courses.length) &&

@@ -7,4 +7,5 @@ export interface IUserData {
     login: string;
     password: string;
     isAdmin: boolean;
+    coins: number;
 }

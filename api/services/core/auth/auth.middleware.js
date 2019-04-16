@@ -34,5 +34,31 @@ module.exports = (server) => {
 		}
 	});
 
+	router.patch('/auth/user/update', (req, res, next) => {
+		const users = server.db.getState().users;
+		const newModel = req.body;
+		return users.map((item) => {
+			if (item.id === newModel.id) {
+				return {
+					...item,
+					...newModel,	
+				}
+			}
+		})
+	});
+
+	router.patch('/auth/user/coins', (req, res, next) => {
+		const users = server.db.getState().users;
+		const coinsModel = req.body;
+		return users.map((item) => {
+			if (item.id === newModel.id) {
+				return {
+					...item,
+					coins: coinsModel.coins,	
+				}
+			}
+		})
+	});
+
 	return router;
 };
