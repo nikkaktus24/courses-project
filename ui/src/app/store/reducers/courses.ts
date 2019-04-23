@@ -5,7 +5,7 @@ import { Course } from './../../models/Courses/Courses';
 
 export type ICoursesState = {
     courses: Course[];
-    store: string[];
+    store: Course[];
     error: string;
     course: Course;
     isLoading: boolean;

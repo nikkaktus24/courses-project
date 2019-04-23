@@ -18,12 +18,12 @@ interface Props {
     children: React.ReactNode;
     courses: Course[];
     user: UserData;
-    store: string[];
+    store: Course[];
     isLoading?: boolean;
     error: string;
     fetchCourses: (start: number, pageNumber: number, sort?: SortTypes, textFragment?: string, filter?: SortTypes) => void;
     clear: () => void;
-    order: (store: string[]) => void;
+    order: (store: Course[]) => void;
     deleteCourse: (id: string) => void;
 }
 
@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
         clear: () => {
             dispatch(CoursesService.clearErrors());
         },
-        order: (store: string[]) => {
+        order: (store: Course[]) => {
             dispatch(CoursesService.store(store));
         },
         deleteCourse: (id: string) => {
@@ -77,8 +77,8 @@ class CoursesFlow extends React.PureComponent<Props, any> {
         this.props.fetchCourses(0, this.pageNumber);
     }
 
-    public order = (id: string): () => any => {
-        const store: string[] = [...this.props.store, id];
+    public order = (course: Course): () => any => {
+        const store: Course[] = [...this.props.store, course];
         return () => this.props.order(store);
     }
 
@@ -146,7 +146,7 @@ class CoursesFlow extends React.PureComponent<Props, any> {
                 <Loader />}
                 <div className='cc-course-flow__courses'>
                     {this.props.courses &&
-                this.props.courses.map((item: Course) => <Card isOrderable={true} deleteCourse={this.deleteCourse(item.id)} isAdmin={this.props.user.isAdmin} order={this.order(item.id)} course={item} key={item.id}></Card>)}
+                this.props.courses.map((item: Course) => <Card isOrderable={true} deleteCourse={this.deleteCourse(item.id)} isAdmin={this.props.user.isAdmin} order={this.order(item)} course={item} key={item.id}></Card>)}
                 </div>
                 {(this.props.courses && this.props.courses.length) ? <button onClick={this.loadMore} className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Загрузить еще</button> : null}
                     {(this.props.courses && !this.props.courses.length) &&

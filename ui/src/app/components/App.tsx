@@ -10,11 +10,12 @@ import { AuthService } from '../services/authService';
 import CreateCourse from './CreateCourse';
 import EditCourse from './EditCourse';
 import Store from './Store';
+import { Course } from '../models/Courses/Courses';
 
 interface Props {
     children: React.ReactNode;
     user: UserData;
-    store: string[];
+    store: Course[];
     logout: () => void;
 }
 

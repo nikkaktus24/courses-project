@@ -10,7 +10,6 @@ interface Props {
     isAdmin?: boolean;
     order?: () => void;
     deleteCourse?: () => void;
-    deleteStoreCourse?: () => void;
 }
 
 const Card = (props: Props): JSX.Element => {

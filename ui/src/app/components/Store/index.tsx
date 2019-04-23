@@ -11,14 +11,17 @@ import { ICourseForm } from '../../interfaces/Courses/course-form';
 import { Course } from '../../models/Courses/Courses';
 import Card from '../Card';
 import { find } from 'lodash';
+import { UserData } from '../../models/Shared/UserData';
 
 interface Props {
     isLoading?: boolean;
-    store: string[];
+    store: Course[];
     courses: Course[];
+    userData: UserData;
     error: string;
     createCourse: (course: CourseCreateRequest) => void;
     clear: () => void;
+    deleteCourse: (store: Course[], course: Course) => void;
 }
 
 interface State {
@@ -30,6 +33,7 @@ const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
         ...props,
         courses: state.courses.courses,
         store: state.courses.store,
+        userData: state.user.userData,
         isLoading: state.courses.isLoading,
         error: state.user.error,
     };
@@ -44,12 +48,17 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
         clear: () => {
             dispatch(CoursesService.clearErrors());
         },
+        deleteCourse: (store: Course[], course: Course) => {
+            const result: Course[] = store.filter((item: Course) => {
+                return item.id !== course.id;
+            });
+            dispatch(CoursesService.store(result));
+        },
     };
 };
 
 class Store extends React.PureComponent<Props, any> {
     public state: State;
-    public cost: number = 0;
 
     constructor(props: Props) {
         super(props);
@@ -72,18 +81,17 @@ class Store extends React.PureComponent<Props, any> {
         };
     }
 
-    public findCourse(item: Course): JSX.Element {
-        return find(this.props.store, (store: string) => store === item.id) ?
-            <Card isOrderable={false} course={item} key={item.id}></Card>
-            : null;
+    public deleteCourse = (course: Course): () => any => {
+        return () => this.props.deleteCourse(this.props.store, course);
     }
 
-    public calculateCost(): void {
-        this.props.courses.forEach((item: Course) => {
-            if (find(this.props.store, (store: string) => store === item.id)) {
-                this.cost = item.cost + this.cost;
-            }
+    public calculateCost(): number {
+        let cost: number = 0;
+        this.props.store.forEach((item: Course) => {
+            cost = item.cost + cost;
         });
+
+        return cost;
     }
 
     public render(): React.ReactElement {
@@ -93,12 +101,12 @@ class Store extends React.PureComponent<Props, any> {
             {(this.props.store && this.props.store.length) ?
                 <div>
                     <div className='cc-course-flow__dashboard cc-form'>
-                        Сумма {this.cost}
-                        <button className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Заказать</button>
+                        Сумма {this.calculateCost()}
+                        <button disabled={this.calculateCost() > this.props.userData.coins} className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Заказать</button>
                     </div>
                     <div className='cc-course-flow__courses'>
                         {this.props.courses &&
-                            this.props.courses.map((item: Course) => this.findCourse(item))}
+                            this.props.store.map((item: Course) => <Card isOrderable={false} deleteCourse={this.deleteCourse(item)} course={item} key={item.id}></Card>)}
                     </div>
                 </div>
                 : <div className='cc-course-flow__no-data-available'>Корзина пуста</div>}

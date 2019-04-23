@@ -3,10 +3,11 @@ import './index.scss';
 import { appSettings } from '../../../appSettings';
 import { UserData } from '../../models/Shared/UserData';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Course } from '../../models/Courses/Courses';
 
 export interface SideBarProps {
     user: UserData;
-    store: string[];
+    store: Course[];
     logout: () => void;
 }
 

@@ -16,7 +16,7 @@ export class CoursesService {
         };
     }
 
-    public static store(store: string[]) {
+    public static store(store: Course[]) {
         return {
             type: CourseConstants.STORE_WORK,
             payload: store,
