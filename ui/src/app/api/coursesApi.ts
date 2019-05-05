@@ -13,6 +13,10 @@ export class CourseApi {
         return getResponse(axios.get<ICourseDTO[]>(EndService.getCourses(start, pageNumber, sort, textFragment, filter)));
     }
 
+    public static async fetchCoursesByUserId(userId: number, start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes,): Promise<ICourseDTO[]> {
+        return getResponse(axios.get<ICourseDTO[]>(EndService.getCoursesByUserId(userId, start, pageNumber, sort, textFragment, filter)));
+    }
+
     public static async createCourse(course: CourseCreateRequest): Promise<ICourseDTO> {
         return getResponse(axios.post<ICourseDTO>(EndService.createCourse(), course));
     }

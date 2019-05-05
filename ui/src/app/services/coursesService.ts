@@ -50,6 +50,29 @@ export class CoursesService {
         };
     }
 
+    public static fetchCoursesByUserId(userId: number, start: number, pageNumber: number, sort: SortTypes = SortTypes.Date, textFragment?: string, filter?: SortTypes,) {
+        return async (dispatch: any) => {
+            dispatch({
+                type: CourseConstants.FETCH_COURSES,
+            });
+            try {
+
+                const response: ICourseDTO[] = await CourseApi.fetchCoursesByUserId(userId, start, pageNumber * COURSE_COUNT, sort, textFragment, filter);
+                const payload: Course[] = response.map((item: ICourseDTO) => Course.fromServer(item));
+
+                dispatch({
+                    type: CourseConstants.FETCH_COURSES_OK,
+                    payload,
+                });
+            } catch (err) {
+                dispatch({
+                    type: CourseConstants.FETCH_COURSES_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
     public static createCourse(course: CourseCreateRequest) {
         return async (dispatch: any) => {
             dispatch({
@@ -84,10 +107,6 @@ export class CoursesService {
                 dispatch({
                     type: UserConstants.FETCH_USER_OK,
                     payload,
-                });
-
-                dispatch({
-                    type: CourseConstants.ORDER_COURSES_OK,
                 });
             } catch (err) {
                 dispatch({

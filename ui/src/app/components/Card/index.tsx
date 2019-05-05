@@ -28,7 +28,7 @@ const Card = (props: Props): JSX.Element => {
             </div>
             {props.isOrderable ?
                 <div className='cc-card__dashboard'>
-                    <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>
+                    {props.order && <button onClick={props.order} className='cc-btn cc-card__button cc-card__button_order cc-btn_primary-outline'>Заказать</button>}
                     {props.isAdmin && (
                     [<Link to={`/course/${props.course.id}`}><button className='cc-btn cc-card__button cc-btn_red-outline'>Редактировать</button></Link>,
                         <button onClick={props.deleteCourse} className='cc-btn cc-card__button cc-btn_red'>Удалить</button>]

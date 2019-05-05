@@ -2,6 +2,7 @@ import { CoursesService } from './../../services/coursesService';
 import { ActionPayload } from './../../interfaces/ActionPayload';
 import { CourseConstants } from './../constants/courses';
 import { Course } from './../../models/Courses/Courses';
+import { UserConstants } from '../constants/user';
 
 export type ICoursesState = {
     courses: Course[];
@@ -47,6 +48,7 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case UserConstants.FETCH_USER_OK:
         case CourseConstants.ORDER_COURSES_OK:
         case CourseConstants.DELETE_COURSE_OK: {
             return {

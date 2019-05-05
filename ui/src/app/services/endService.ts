@@ -35,5 +35,14 @@ export class EndService {
         }
     }
 
+    public static getCoursesByUserId(userId: number, start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes): string {
+        const url: string = `${BASE_URL}/ordered?userId=${userId}&start=${start}&count=${pageNumber}&sort=${sort}`;
+        if (textFragment) {
+            return filter ? url + `&filter=${filter}&textFragment=${textFragment}` : url + `&textFragment=${textFragment}`;
+        } else {
+            return url;
+        }
+    }
+
     constructor() {}
 }
