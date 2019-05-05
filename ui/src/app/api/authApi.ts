@@ -1,3 +1,4 @@
+import { JoinModel } from './../models/Auth/JoinModel';
 import { IUserData } from './../interfaces/Auth/UserDataDTO';
 import { TokenModel } from './../models/Auth/TokenModel';
 import { EndService } from './../services/endService';
@@ -9,6 +10,10 @@ import { ICheckSessionDTO } from '../interfaces/Auth/checkSessionDTO';
 export class AuthApi {
     public static async checkSession(model: SessionModel): Promise<ICheckSessionDTO> {
         return getResponse(axios.post<SessionModel>(EndService.login(), model));
+    }
+
+    public static async createUser(model: JoinModel): Promise<ICheckSessionDTO> {
+        return getResponse(axios.put<SessionModel>(EndService.join(), model));
     }
 
     public static async fetchUserData(model: TokenModel): Promise<IUserData> {

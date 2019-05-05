@@ -19,7 +19,6 @@ module.exports = (server) => {
 		const users = server.db.getState().users;
 		const user = users.filter((user) => user.id == query.userId)[0];
 		let userCourses = _.filter(courses, (item) => _.find(user.courses, (course) => course === item.id));
-		console.log(userCourses);
 		
 			if (!!query.textFragment) {
 				userCourses = userCourses.filter((course) => course.name.concat(course.description).toUpperCase().indexOf(query.textFragment.toUpperCase()) >= 0);

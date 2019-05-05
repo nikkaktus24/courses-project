@@ -17,6 +17,16 @@
         @include flexbox();
     }
 
+    &__label {
+        width: 100%;
+        @include flexbox(row, space-between, flex-end);
+    }
+
+    &__show-password {
+        font-size: 0.7rem;
+        cursor: pointer;
+    }
+
     &__button {
         width: 100%;
 

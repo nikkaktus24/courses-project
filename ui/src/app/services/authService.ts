@@ -1,3 +1,4 @@
+import { JoinModel } from './../models/Auth/JoinModel';
 import { UserData } from './../models/Shared/UserData';
 import { IUserData } from './../interfaces/Auth/UserDataDTO';
 import { ICheckSessionDTO } from '../interfaces/Auth/checkSessionDTO';
@@ -47,6 +48,35 @@ export class AuthService {
             });
             try {
                 const checkSession: ICheckSessionDTO = await AuthApi.checkSession(model);
+
+                const tokenModel: TokenModel = new TokenModel(checkSession.token);
+                AuthService.setToken(tokenModel.token);
+
+                const result: IUserData = await AuthApi.fetchUserData(tokenModel);
+                const payload: UserData = new UserData(result);
+
+                AuthService.initInterceptors(tokenModel.token);
+
+                dispatch({
+                    type: UserConstants.FETCH_USER_OK,
+                    payload,
+                });
+            } catch (err) {
+                dispatch({
+                    type: UserConstants.FETCH_USER_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
+    public static join(model: JoinModel) {
+        return async (dispatch: any) => {
+            dispatch({
+                type: UserConstants.FETCH_USER,
+            });
+            try {
+                const checkSession: ICheckSessionDTO = await AuthApi.createUser(model);
 
                 const tokenModel: TokenModel = new TokenModel(checkSession.token);
                 AuthService.setToken(tokenModel.token);

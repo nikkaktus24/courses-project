@@ -46,6 +46,29 @@ module.exports = (server) => {
 		})
 	});
 
+	router.put('/auth/join', (req, res, next) => {
+		const users = server.db.getState().users;
+		const newUser = req.body;
+	
+		const newModel =
+		{
+			id: users.length + 1,
+			fakeToken: generateToken(24),
+			"name": {
+			  "first": newUser.firstName,
+			  "last": newUser.lastName
+			},
+			"courses": [],
+			"login": newUser.login,
+			"coins": 1000,
+			"password": newUser.password,
+			"isAdmin": false
+		  };
+
+		  users.push(newModel);
+		  res.json({ token: newModel.fakeToken});
+	});
+
 	router.patch('/auth/user/coins', (req, res, next) => {
 		const users = server.db.getState().users;
 		const coinsModel = req.body;
@@ -61,3 +84,13 @@ module.exports = (server) => {
 
 	return router;
 };
+
+function generateToken(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
