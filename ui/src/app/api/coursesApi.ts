@@ -1,3 +1,5 @@
+import { IUserData } from './../interfaces/Auth/UserDataDTO';
+import { OrderCoursesRequest } from './../interfaces/Courses/order-courses-request';
 import { CourseCreateRequest } from './../models/Courses/CourseRequest';
 import { SortTypes } from './../enums/sort-types';
 import { ICourseDTO } from './../interfaces/Courses/courses-dto';
@@ -13,6 +15,10 @@ export class CourseApi {
 
     public static async createCourse(course: CourseCreateRequest): Promise<ICourseDTO> {
         return getResponse(axios.post<ICourseDTO>(EndService.createCourse(), course));
+    }
+
+    public static async orderCourses(request: OrderCoursesRequest): Promise<IUserData> {
+        return getResponse(axios.post<IUserData>(EndService.orderCourses(), request));
     }
 
     public static async getCourseById(id: string): Promise<ICourseDTO> {

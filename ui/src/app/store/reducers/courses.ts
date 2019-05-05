@@ -23,6 +23,7 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
     switch (action.type) {
         case CourseConstants.GET_COURSE_BY_ID:
         case CourseConstants.CREATE_COURSE:
+        case CourseConstants.ORDER_COURSES:
         case CourseConstants.DELETE_COURSE:
         case CourseConstants.FETCH_COURSES: {
             return {
@@ -46,6 +47,7 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
                 isLoading: initialState.isLoading,
             };
         }
+        case CourseConstants.ORDER_COURSES_OK:
         case CourseConstants.DELETE_COURSE_OK: {
             return {
                 ...state,
@@ -55,6 +57,7 @@ export function coursesReducer(state = initialState, action: ActionPayload<any>)
         case CourseConstants.GET_COURSE_BY_ID_FAIL:
         case CourseConstants.UPDATE_COURSE_FAIL:
         case CourseConstants.CREATE_COURSE_FAIL:
+        case CourseConstants.ORDER_COURSES_FAIL:
         case CourseConstants.DELETE_COURSE_FAIL:
         case CourseConstants.FETCH_COURSES_FAIL: {
             return {

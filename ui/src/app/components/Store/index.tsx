@@ -12,6 +12,7 @@ import { Course } from '../../models/Courses/Courses';
 import Card from '../Card';
 import { find } from 'lodash';
 import { UserData } from '../../models/Shared/UserData';
+import { OrderCoursesRequest } from '../../interfaces/Courses/order-courses-request';
 
 interface Props {
     isLoading?: boolean;
@@ -19,7 +20,7 @@ interface Props {
     courses: Course[];
     userData: UserData;
     error: string;
-    createCourse: (course: CourseCreateRequest) => void;
+    orderCourses: (request: OrderCoursesRequest) => void;
     clear: () => void;
     deleteCourse: (store: Course[], course: Course) => void;
 }
@@ -42,8 +43,8 @@ const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
 const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
     return {
         ...props,
-        createCourse: (course: CourseCreateRequest) => {
-            dispatch(CoursesService.createCourse(course));
+        orderCourses: (request: OrderCoursesRequest) => {
+            dispatch(CoursesService.orderCourses(request));
         },
         clear: () => {
             dispatch(CoursesService.clearErrors());
@@ -71,14 +72,10 @@ class Store extends React.PureComponent<Props, any> {
         this.calculateCost();
     }
 
-    public createCourse(): (courseForm: ICourseForm) => void {
-        return (courseForm: ICourseForm) => {
-            const request: CourseCreateRequest = CourseCreateRequest.toRequest(courseForm);
-            this.props.createCourse(request);
-            this.setState({
-                isEdited: true,
-            });
-        };
+    public orderCourses = (): void => {
+        const courseIds: string[] = this.props.store.map((course: Course) => course.id);
+        const request: OrderCoursesRequest = new OrderCoursesRequest(this.props.userData.id, courseIds, this.calculateCost());
+        this.props.orderCourses(request);
     }
 
     public deleteCourse = (course: Course): () => any => {
@@ -96,20 +93,20 @@ class Store extends React.PureComponent<Props, any> {
 
     public render(): React.ReactElement {
         return (
-            <div className='cc-course-flow'>
-                <div className='cc-text cc-text__h1 cc-edit-course__title'>Корзина</div>
+            <div className='cc-store'>
+                <div className='cc-text cc-text__h1 cc-store__title'>Корзина</div>
             {(this.props.store && this.props.store.length) ?
                 <div>
-                    <div className='cc-course-flow__dashboard cc-form'>
+                    <div className='cc-store__dashboard cc-form'>
                         Сумма {this.calculateCost()}
-                        <button disabled={this.calculateCost() > this.props.userData.coins} className='cc-btn cc-btn_primary-outline cc-course-flow__button'>Заказать</button>
+                        <button disabled={this.calculateCost() > this.props.userData.coins} onClick={this.orderCourses} className='cc-btn cc-btn_primary-outline cc-store__button'>Заказать</button>
                     </div>
-                    <div className='cc-course-flow__courses'>
+                    <div className='cc-store__courses'>
                         {this.props.courses &&
                             this.props.store.map((item: Course) => <Card isOrderable={false} deleteCourse={this.deleteCourse(item)} course={item} key={item.id}></Card>)}
                     </div>
                 </div>
-                : <div className='cc-course-flow__no-data-available'>Корзина пуста</div>}
+                : <div className='cc-store__no-data-available'>Корзина пуста</div>}
             {this.props.isLoading &&
                 <Loader />}
             </div>

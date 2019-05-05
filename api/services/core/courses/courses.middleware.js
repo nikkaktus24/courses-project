@@ -46,6 +46,18 @@ module.exports = (server) => {
 		
 		res.json(courses);
 	});
+
+	router.post('/courses/order', (req, res, next) => {
+		const url_parts = url.parse(req.originalUrl, true);
+		const courses = server.db.getState().courses;
+		const users = server.db.getState().users;
+
+		const user = users.filter((user) => user.id === req.body.userId)[0];
+		user.courses = [...user.courses, ...req.body.courses];
+		user.coins = user.coins - req.body.cost;
+
+		res.json(user);
+	});
 	
 	return router;
 };

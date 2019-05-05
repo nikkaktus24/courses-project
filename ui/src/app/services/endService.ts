@@ -22,6 +22,10 @@ export class EndService {
         return `${BASE_URL}/courses/${id}`;
     }
 
+    public static orderCourses(): string {
+        return `${BASE_URL}/courses/order/`;
+    }
+
     public static getCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes): string {
         const url: string = `${BASE_URL}/courses?start=${start}&count=${pageNumber}&sort=${sort}`;
         if (textFragment) {

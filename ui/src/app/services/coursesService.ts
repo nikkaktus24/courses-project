@@ -1,3 +1,7 @@
+import { IUserData } from './../interfaces/Auth/UserDataDTO';
+import { UserData } from './../models/Shared/UserData';
+import { UserConstants } from './../store/constants/user';
+import { OrderCoursesRequest } from './../interfaces/Courses/order-courses-request';
 import { CourseCreateRequest } from './../models/Courses/CourseRequest';
 import { CourseApi } from './../api/coursesApi';
 import { ICourseDTO } from './../interfaces/Courses/courses-dto';
@@ -68,6 +72,31 @@ export class CoursesService {
         };
     }
 
+    public static orderCourses(request: OrderCoursesRequest) {
+        return async (dispatch: any) => {
+            dispatch({
+                type: CourseConstants.ORDER_COURSES,
+            });
+            try {
+                const result: IUserData = await CourseApi.orderCourses(request);
+                const payload: UserData = new UserData(result);
+
+                dispatch({
+                    type: UserConstants.FETCH_USER_OK,
+                    payload,
+                });
+
+                dispatch({
+                    type: CourseConstants.ORDER_COURSES_OK,
+                });
+            } catch (err) {
+                dispatch({
+                    type: CourseConstants.ORDER_COURSES_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
 
     public static getCourseById(id: string) {
         return async (dispatch: any) => {
