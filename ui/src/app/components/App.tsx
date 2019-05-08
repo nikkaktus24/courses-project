@@ -12,6 +12,7 @@ import EditCourse from './EditCourse';
 import Store from './Store';
 import { Course } from '../models/Courses/Courses';
 import MyOrders from './MyOrders';
+import DataPanel from './DataPanel';
 
 interface Props {
     children: React.ReactNode;
@@ -50,6 +51,7 @@ const App = (props: Props): JSX.Element => {
                     <Route path='/course/:id' component={EditCourse} />
                     <Route path='/create' component={CreateCourse} />
                     <Route path='/my-orders' component={MyOrders} />
+                    <Route path='/owner' component={DataPanel} />
                     <Route path='/store' component={Store} />
                 </Switch>
             </div>

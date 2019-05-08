@@ -4,6 +4,7 @@ import { UserConstants } from '../constants/user';
 
 export type IUserState = {
     userData: UserData;
+    users: UserData[];
     isLoggedIn: boolean;
     error: string;
     isLoading: boolean;
@@ -12,6 +13,7 @@ export type IUserState = {
 
 const initialState: IUserState = {
     userData: void 0,
+    users: void 0,
     error: void 0,
     isLoggedIn: false, // CHANGE IT IF IT NEEDED
     isLoading: false,
@@ -19,6 +21,7 @@ const initialState: IUserState = {
 
 export function userReducer(state = initialState, action: ActionPayload<any>): IUserState {
     switch (action.type) {
+        case UserConstants.FETCH_USERS:
         case UserConstants.FETCH_USER: {
             return {
                 ...state,
@@ -33,6 +36,14 @@ export function userReducer(state = initialState, action: ActionPayload<any>): I
                 isLoading: initialState.isLoading,
             };
         }
+        case UserConstants.FETCH_USERS_OK: {
+            return {
+                ...state,
+                users: action.payload,
+                isLoading: initialState.isLoading,
+            };
+        }
+        case UserConstants.FETCH_USERS_FAIL:
         case UserConstants.FETCH_USER_FAIL: {
             return {
                 ...state,

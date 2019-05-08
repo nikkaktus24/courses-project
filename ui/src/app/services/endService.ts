@@ -18,6 +18,14 @@ export class EndService {
         return `${BASE_URL}/auth/userinfo`;
     }
 
+    public static updateUser(): string {
+        return `${BASE_URL}/auth/update`;
+    }
+
+    public static getUsers(): string {
+        return `${BASE_URL}/auth/users`;
+    }
+
     public static createCourse(): string {
         return `${BASE_URL}/courses/`;
     }

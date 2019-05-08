@@ -1,5 +1,5 @@
 {
-	"users": [
+	"userscopy": [
   {
     "id": 0,
     "fakeToken": "58ebfdf4cc92657b493b24da",
@@ -10,7 +10,7 @@
     "courses": [],
     "login": "owner",
     "coins": 100000,
-    "password": "test123321",
+    "password": "tXDKbg43*E?S$`'v",
     "isAdmin": true,
     "isOwner": true
   },

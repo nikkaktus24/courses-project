@@ -4,10 +4,14 @@ const url = require('url');
 
 module.exports = (server) => {
 
+	router.get('/auth/copy', (req, res, next) => {
+		server.db.__wrapped__.users = server.db.__wrapped__.userscopy;
+		res.status(200);
+	});
+
 	router.post('/auth/login', (req, res, next) => {
 		let users = server.db.getState().users,
 			matchedUser = users.find((user) => {
-				console.log(user);
 				return user.login.toUpperCase() === req.body.login.toUpperCase();
 			});
 
@@ -62,7 +66,8 @@ module.exports = (server) => {
 			"login": newUser.login,
 			"coins": 1000,
 			"password": newUser.password,
-			"isAdmin": false
+			"isAdmin": false,
+			isOwner: false,
 		  };
 
 		  users.push(newModel);
@@ -80,6 +85,34 @@ module.exports = (server) => {
 				}
 			}
 		})
+	});
+
+	router.patch('/auth/user/adminflag', (req, res, next) => {
+		const users = server.db.getState().users;
+		const adminModel = req.body;
+		return users.map((item) => {
+			if (item.id === newModel.id) {
+				return {
+					...item,
+					isAdmin: adminModel.isAdmin,	
+				}
+			}
+		})
+	});
+
+	router.get('/auth/users', (req, res, next) => {
+		let users = server.db.getState().users;
+		users = users
+			.filter((item) => item.login !== 'owner')
+			.map((item) => ({
+					id: item.id,
+					login: item.login,
+					name: item.name,
+					coins: item.coins,
+					isAdmin: item.isAdmin,
+				}));
+
+		res.json(users);
 	});
 
 	return router;

@@ -1,3 +1,4 @@
+import { UserData } from './../models/Shared/UserData';
 import { JoinModel } from './../models/Auth/JoinModel';
 import { IUserData } from './../interfaces/Auth/UserDataDTO';
 import { TokenModel } from './../models/Auth/TokenModel';
@@ -18,6 +19,14 @@ export class AuthApi {
 
     public static async fetchUserData(model: TokenModel): Promise<IUserData> {
         return getResponse(axios.post<SessionModel>(EndService.userData(), model));
+    }
+
+    public static async updateUser(model: UserData): Promise<void> {
+        return getResponse(axios.patch<void>(EndService.updateUser(), model));
+    }
+
+    public static async getUsers(): Promise<IUserData[]> {
+        return getResponse(axios.get<IUserData[]>(EndService.getUsers()));
     }
 
     constructor() {}

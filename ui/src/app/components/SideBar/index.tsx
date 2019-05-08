@@ -18,6 +18,7 @@ const SideBar = (props: SideBarProps): JSX.Element => {
                 <div className='cc-sidebar__logo'>{appSettings.title}</div>
                 <div className='cc-sidebar-navigation'>
                     {(props.user.isAdmin) ? <Link to='/create'><div className='cc-sidebar-navigation__item'>Добавить курс</div></Link> : null}
+                    {(props.user.isOwner) ? <Link to='/owner'><div className='cc-sidebar-navigation__item'>Панель Данных</div></Link> : null}
                     <Link to='/my-orders'><div className='cc-sidebar-navigation__item'>Мои заказы</div></Link>
                     <Link to='/courses'><div className='cc-sidebar-navigation__item'>Каталог курсов</div></Link>
                     <Link to='/store'><div className='cc-sidebar-navigation__item'>Корзина</div></Link>

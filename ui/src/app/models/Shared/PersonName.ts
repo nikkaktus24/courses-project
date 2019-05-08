@@ -4,11 +4,11 @@ export class PersonName {
     public lastName: string;
 
     constructor(model: IUserName) {
-        this.firstName = model.firstName;
-        this.lastName = model.lastName;
+        this.firstName = model.first;
+        this.lastName = model.last;
     }
 
     public getFullName(): string {
-        return this.firstName + ' ' + this.lastName;
+        return `${this.firstName} ${this.lastName}`;
     }
 }

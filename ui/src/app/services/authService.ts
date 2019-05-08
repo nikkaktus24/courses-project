@@ -53,7 +53,7 @@ export class AuthService {
                 AuthService.setToken(tokenModel.token);
 
                 const result: IUserData = await AuthApi.fetchUserData(tokenModel);
-                const payload: UserData = new UserData(result);
+                const payload: UserData = UserData.fromDTO(result);
 
                 AuthService.initInterceptors(tokenModel.token);
 
@@ -82,7 +82,7 @@ export class AuthService {
                 AuthService.setToken(tokenModel.token);
 
                 const result: IUserData = await AuthApi.fetchUserData(tokenModel);
-                const payload: UserData = new UserData(result);
+                const payload: UserData = UserData.fromDTO(result);
 
                 AuthService.initInterceptors(tokenModel.token);
 
@@ -107,7 +107,7 @@ export class AuthService {
             try {
                 const tokenModel: TokenModel = new TokenModel(token);
                 const result: IUserData = await AuthApi.fetchUserData(tokenModel);
-                const payload: UserData = new UserData(result);
+                const payload: UserData = UserData.fromDTO(result);
 
                 AuthService.initInterceptors(token);
 
@@ -118,6 +118,48 @@ export class AuthService {
             } catch (err) {
                 dispatch({
                     type: UserConstants.FETCH_USER_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
+    public static getUsers() {
+        return async (dispatch: any) => {
+            dispatch({
+                type: UserConstants.FETCH_USERS,
+            });
+            try {
+                const result: IUserData[] = await AuthApi.getUsers();
+                const payload: UserData[] = result.map((item: IUserData) => UserData.fromDTO(item));
+
+                dispatch({
+                    type: UserConstants.FETCH_USERS_OK,
+                    payload,
+                });
+            } catch (err) {
+                dispatch({
+                    type: UserConstants.FETCH_USERS_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
+    public static updateUser(request: UserData) {
+        return async (dispatch: any) => {
+            dispatch({
+                type: UserConstants.UPDATE_USER,
+            });
+            try {
+                await AuthApi.updateUser(request);
+
+                dispatch({
+                    type: UserConstants.UPDATE_USER_OK,
+                });
+            } catch (err) {
+                dispatch({
+                    type: UserConstants.UPDATE_USER_FAIL,
                     payload: getError(err),
                 });
             }

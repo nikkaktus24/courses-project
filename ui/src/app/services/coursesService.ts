@@ -102,7 +102,7 @@ export class CoursesService {
             });
             try {
                 const result: IUserData = await CourseApi.orderCourses(request);
-                const payload: UserData = new UserData(result);
+                const payload: UserData = UserData.fromDTO(result);
 
                 dispatch({
                     type: UserConstants.FETCH_USER_OK,

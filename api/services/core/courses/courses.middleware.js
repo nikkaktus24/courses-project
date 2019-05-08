@@ -51,6 +51,11 @@ module.exports = (server) => {
 		res.json(userCourses);
 	});
 
+	router.get('/courses/copy', (req, res, next) => {
+		server.db.__wrapped__.courses = server.db.__wrapped__.coursescopy;
+		res.status(200);
+	});
+
 	router.get('/courses', (req, res, next) => {
 		let url_parts = url.parse(req.originalUrl, true),
 			query = url_parts.query,
@@ -95,8 +100,8 @@ module.exports = (server) => {
 
 	router.post('/courses/order', (req, res, next) => {
 		const url_parts = url.parse(req.originalUrl, true);
-		const courses = server.db.getState().courses;
 		const users = server.db.getState().users;
+
 
 		const user = _.find(users, ((user) => user.id === req.body.userId));
 		user.courses = [...user.courses, ...req.body.courses];
