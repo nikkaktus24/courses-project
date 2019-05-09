@@ -52,8 +52,11 @@ module.exports = (server) => {
 	});
 
 	router.get('/courses/copy', (req, res, next) => {
-		server.db.__wrapped__.courses = server.db.__wrapped__.coursescopy;
-		res.status(200);
+		server.db.setState({
+			...server.db.getState(),
+			courses: server.db.getState().coursescopy.map((item) => ({...item}))
+		});
+		res.json(true);
 	});
 
 	router.get('/courses', (req, res, next) => {

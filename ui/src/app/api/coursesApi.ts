@@ -6,7 +6,6 @@ import { ICourseDTO } from './../interfaces/Courses/courses-dto';
 import { EndService } from './../services/endService';
 import axios from 'axios';
 import getResponse from '../helpers/getResponse';
-import { Course } from '../models/Courses/Courses';
 
 export class CourseApi {
     public static async fetchCourses(start: number, pageNumber: number, sort: SortTypes, textFragment?: string, filter?: SortTypes,): Promise<ICourseDTO[]> {
@@ -27,6 +26,10 @@ export class CourseApi {
 
     public static async getCourseById(id: string): Promise<ICourseDTO> {
         return getResponse(axios.get<ICourseDTO>(EndService.courseById(id)));
+    }
+
+    public static async resetCourses(): Promise<void> {
+        return getResponse(axios.get<void>(EndService.resetCourses()));
     }
 
     public static async updateCourse(id: string, course: CourseCreateRequest): Promise<ICourseDTO> {

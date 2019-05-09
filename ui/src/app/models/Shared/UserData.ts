@@ -43,4 +43,11 @@ export class UserData {
 
     constructor() { }
 
+    public toRequest(isAdmin: boolean, coins: number): UserData {
+        this.isAdmin = isAdmin;
+        this.coins = coins;
+
+        return this;
+    }
+
 }

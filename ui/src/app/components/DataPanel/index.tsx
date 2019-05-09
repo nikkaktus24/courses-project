@@ -19,8 +19,12 @@ import UserCard from '../UserCard';
 interface Props {
     user: UserData;
     users: UserData[];
-    isLoading?: boolean;
+    isLoadingUsers?: boolean;
+    isLoadingCourses?: boolean;
     fetchUsers: () => void;
+    resetUsers: () => void;
+    resetCourses: () => void;
+    updateUser: (request: UserData) => void;
 }
 
 interface State {
@@ -33,7 +37,8 @@ const mapStateToProps = (state: IAppState, props: Props): Partial<Props> => {
         ...props,
         user: state.user.userData,
         users: state.user.users,
-        isLoading: state.courses.isLoading,
+        isLoadingCourses: state.courses.isLoading,
+        isLoadingUsers: state.user.isLoading,
     };
 };
 
@@ -42,6 +47,15 @@ const mapDispatchToProps = (dispatch: any, props: Props): Partial<Props> => {
         ...props,
         fetchUsers: () => {
             dispatch(AuthService.getUsers());
+        },
+        resetUsers: () => {
+            dispatch(AuthService.resetUsers());
+        },
+        resetCourses: () => {
+            dispatch(CoursesService.resetCourses());
+        },
+        updateUser: (request: UserData) => {
+            dispatch(AuthService.updateUser(request));
         }
     };
 };
@@ -67,10 +81,19 @@ class DataPanel extends React.PureComponent<Props, any> {
         this.setState({[target.name]: target.value});
     }
 
+    public onResetUsers = (): void => {
+        this.props.resetUsers();
+        this.props.fetchUsers();
+    }
+
+    public updateUser = (): (request: UserData) => any => {
+        return (request: UserData) => {
+            this.props.updateUser(request);
+            this.props.fetchUsers();
+        };
+    }
+
     public render(): React.ReactElement {
-        if (this.props.isLoading) {
-            <Loader />;
-        }
         if (!this.props.user.isOwner) {
            <Redirect to='courses' />;
         }
@@ -78,14 +101,14 @@ class DataPanel extends React.PureComponent<Props, any> {
             <div className='cc-data-panel'>
                 <div className='cc-text cc-text__h1 cc-data-panel__title'>Панель данных</div>
                 <div className='cc-data-panel__dashboard'>
-                    <button type='button' className='cc-btn cc-btn_red-outline'>Сбросить юзеров</button>
-                    <button type='button' className='cc-btn cc-btn_red'>Сбросить курсы</button>
+                    <button type='button' onClick={this.onResetUsers} className='cc-btn cc-btn_red-outline'>Сбросить юзеров</button>
+                    <button type='button' onClick={this.props.resetCourses} className='cc-btn cc-btn_red'>Сбросить курсы</button>
                 </div>
-                {this.props.isLoading &&
+                {this.props.isLoadingCourses || this.props.isLoadingUsers &&
                 <Loader />}
                 <div className='cc-course-flow__users'>
                     {this.props.users &&
-                    this.props.users.map((item: UserData) => <UserCard user={item} key={item.id}></UserCard>)}
+                    this.props.users.map((item: UserData) => <UserCard updateUser={this.updateUser()} user={item} key={item.id}></UserCard>)}
                 </div>
             </div>
         );

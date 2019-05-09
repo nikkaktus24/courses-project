@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const _ = require('lodash');
 const url = require('url');
 
 module.exports = (server) => {
 
 	router.get('/auth/copy', (req, res, next) => {
-		server.db.__wrapped__.users = server.db.__wrapped__.userscopy;
-		res.status(200);
+		server.db.setState({
+			...server.db.getState(),
+			users: server.db.getState().userscopy.map((item) => ({...item}))
+		});
+		res.json(true);
 	});
 
 	router.post('/auth/login', (req, res, next) => {
@@ -37,17 +41,15 @@ module.exports = (server) => {
 		}
 	});
 
-	router.patch('/auth/user/update', (req, res, next) => {
+	router.patch('/auth/update', (req, res, next) => {
 		const users = server.db.getState().users;
 		const newModel = req.body;
-		return users.map((item) => {
-			if (item.id === newModel.id) {
-				return {
-					...item,
-					...newModel,	
-				}
-			}
-		})
+	
+		const user = _.find(users, ((user) => user.id === newModel.id));
+		user.coins = parseInt(newModel.coins);
+		user.isAdmin = newModel.isAdmin;
+
+		res.json(true);
 	});
 
 	router.put('/auth/join', (req, res, next) => {
@@ -72,32 +74,6 @@ module.exports = (server) => {
 
 		  users.push(newModel);
 		  res.json({ token: newModel.fakeToken});
-	});
-
-	router.patch('/auth/user/coins', (req, res, next) => {
-		const users = server.db.getState().users;
-		const coinsModel = req.body;
-		return users.map((item) => {
-			if (item.id === newModel.id) {
-				return {
-					...item,
-					coins: coinsModel.coins,	
-				}
-			}
-		})
-	});
-
-	router.patch('/auth/user/adminflag', (req, res, next) => {
-		const users = server.db.getState().users;
-		const adminModel = req.body;
-		return users.map((item) => {
-			if (item.id === newModel.id) {
-				return {
-					...item,
-					isAdmin: adminModel.isAdmin,	
-				}
-			}
-		})
 	});
 
 	router.get('/auth/users', (req, res, next) => {

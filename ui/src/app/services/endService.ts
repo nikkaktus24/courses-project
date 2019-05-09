@@ -26,6 +26,14 @@ export class EndService {
         return `${BASE_URL}/auth/users`;
     }
 
+    public static resetUsers(): string {
+        return `${BASE_URL}/auth/copy`;
+    }
+
+    public static resetCourses(): string {
+        return `${BASE_URL}/courses/copy`;
+    }
+
     public static createCourse(): string {
         return `${BASE_URL}/courses/`;
     }

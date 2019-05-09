@@ -25,6 +25,10 @@ export class AuthApi {
         return getResponse(axios.patch<void>(EndService.updateUser(), model));
     }
 
+    public static async resetUsers(): Promise<void> {
+        return getResponse(axios.get<void>(EndService.resetUsers()));
+    }
+
     public static async getUsers(): Promise<IUserData[]> {
         return getResponse(axios.get<IUserData[]>(EndService.getUsers()));
     }

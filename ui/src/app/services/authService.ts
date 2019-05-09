@@ -166,6 +166,26 @@ export class AuthService {
         };
     }
 
+    public static resetUsers() {
+        return async (dispatch: any) => {
+            dispatch({
+                type: UserConstants.RESET_USERS,
+            });
+            try {
+                await AuthApi.resetUsers();
+
+                dispatch({
+                    type: UserConstants.RESET_USERS_OK,
+                });
+            } catch (err) {
+                dispatch({
+                    type: UserConstants.RESET_USERS_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
     public static clearErrors() {
         return (dispatch: any) => {
             dispatch({

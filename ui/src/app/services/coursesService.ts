@@ -117,6 +117,26 @@ export class CoursesService {
         };
     }
 
+    public static resetCourses() {
+        return async (dispatch: any) => {
+            dispatch({
+                type: CourseConstants.RESET_COURSES,
+            });
+            try {
+                await CourseApi.resetCourses();
+
+                dispatch({
+                    type: CourseConstants.RESET_COURSES_OK,
+                });
+            } catch (err) {
+                dispatch({
+                    type: CourseConstants.RESET_COURSES_FAIL,
+                    payload: getError(err),
+                });
+            }
+        };
+    }
+
     public static getCourseById(id: string) {
         return async (dispatch: any) => {
             dispatch({
